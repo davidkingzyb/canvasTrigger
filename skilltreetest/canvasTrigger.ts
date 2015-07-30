@@ -1,7 +1,7 @@
 class ctCanvas{
 	canvas;
 	context;
-	objs;
+	objs=[];
 	constructor(id){
 		this.canvas = document.getElementById(id);
 		this.context = this.canvas.getContext('2d');
@@ -9,12 +9,14 @@ class ctCanvas{
 	}
 	addObj(obj){
 		this.objs.push(obj);
-		obj.context = this;
+		obj.ctcanvas = this;
+		obj.context = this.context;
 		obj.draw();
 	}
 	ct_onclick(){
+		var that = this;
 		this.canvas.onclick=function(e){
-			this.clickNotify(e);
+			that.clickNotify(e);
 		}
 	}
 	clickObservers = [];
@@ -25,8 +27,8 @@ class ctCanvas{
 		for (var i = 0; i < this.clickObservers.length; i++){
 			var obj = this.clickObservers[i];
 			if(layerX>obj.x&&layerX<(obj.x+obj.w)&&layerY>obj.y&&layerY<(obj.y+obj.h)){
-				var func = this.clickFunctions[i];
-				obj.func;
+				this.clickFunctions[i].call(obj);
+				
 			}
 		}
 	}
@@ -48,6 +50,7 @@ class ctCanvas{
 }
 class ctObj{
 	context;
+	ctcanvas;
 	x;
 	y;
 	w;
@@ -61,18 +64,21 @@ class ctObj{
 	clear(){
 
 	}
-	onTrigger(event,func){
-		this.context.registerObserver(event, func, this);
+	on(event,func){
+		this.ctcanvas.registerObserver(event, func, this);
 	}
-	offTrigger(event,func){
-		this.context.removeObserver(event, func, this);
+	off(event,func){
+		this.ctcanvas.removeObserver(event, func, this);
 	}
 }
-class ctRect extends ctObj{
-	constructor(x?,y?,w?,h?){
+class ctFillRect extends ctObj{
+	fillStyle;
+	constructor(x,y,w,h,fillStyle){
 		super(x, y, w, h);
+		this.fillStyle = fillStyle;
 	}
 	draw(){
-		this.context.
+		this.context.fillStyle = this.fillStyle;
+		this.context.fillRect(this.x, this.y, this.w, this.h);
 	}
 }
