@@ -2,51 +2,77 @@ class ctCanvas{
 	canvas;
 	context;
 	objs=[];
+	triggers = [];
+
 	constructor(id){
 		this.canvas = document.getElementById(id);
 		this.context = this.canvas.getContext('2d');
-		this.ct_onclick();
 	}
+
 	addObj(obj){
 		this.objs.push(obj);
 		obj.ctcanvas = this;
 		obj.context = this.context;
 		obj.draw();
 	}
-	ct_onclick(){
-		var that = this;
-		this.canvas.onclick=function(e){
-			that.clickNotify(e);
+
+	removeObj(obj){
+		var index = this.objs.indexOf(obj);
+		if(index>=0){
+			this.objs.splice(index, 1);
+		}
+		this.offObj(obj);
+		this.drawCanvas();
+	}
+
+	offObj(obj){
+		for (var i = 0; i < this.triggers.length;i++){
+			this.removeObserver(this.triggers[i], obj);
 		}
 	}
-	clickObservers = [];
-	clickFunctions = [];
-	clickNotify(e){
+
+	drawCanvas(){
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		for (var i = 0; i < this.objs.length;i++){
+			this.objs[i].draw();
+		}
+	}
+
+	addTrigger(ctEvent){
+		this.triggers.push(ctEvent);
+		this[ctEvent + 'Observers'] = [];
+		this[ctEvent + 'Functions'] = [];
+		var that = this;
+		this.canvas['on'+ctEvent]=function(e){
+			that.Notify(e, ctEvent);
+		}
+	}
+
+	Notify(e,ctEvent){
 		var layerX = e.layerX;
 		var layerY = e.layerY;
-		for (var i = 0; i < this.clickObservers.length; i++){
-			var obj = this.clickObservers[i];
+		for (var i = 0; i < this[ctEvent+'Observers'].length; i++){
+			var obj = this[ctEvent+'Observers'][i];
 			if(layerX>obj.x&&layerX<(obj.x+obj.w)&&layerY>obj.y&&layerY<(obj.y+obj.h)){
-				this.clickFunctions[i].call(obj);
+				this[ctEvent+'Functions'][i].call(obj);
 				
 			}
 		}
 	}
-	registerObserver(event,func,obj){
-		if(event==='click'){
-			this.clickObservers.push(obj);
-			this.clickFunctions.push(func);
+
+	registerObserver(ctEvent,func,obj){
+		this[ctEvent+'Observers'].push(obj);
+		this[ctEvent+'Functions'].push(func);
+	}
+
+	removeObserver(ctEvent,obj){	
+		var index = this[ctEvent+'Observers'].indexOf(obj);
+		if(index>=0){
+			this[ctEvent+'Observers'].splice(index, 1);
+			this[ctEvent+'Functions'].splice(index, 1);
 		}
 	}
-	removeObserver(event,func,obj){
-		if(event==='click'){
-			var index = this.clickObservers.indexOf(obj);
-			if(index>=0){
-				this.clickObservers.splice(index, 1);
-				this.clickFunctions.splice(index, 1);
-			}
-		}
-	}
+
 }
 class ctObj{
 	context;
@@ -61,14 +87,11 @@ class ctObj{
 		this.w = w||0;
 		this.h = h||0;
 	}
-	clear(){
-
+	on(ctevent,func){
+		this.ctcanvas.registerObserver(ctevent, func, this);
 	}
-	on(event,func){
-		this.ctcanvas.registerObserver(event, func, this);
-	}
-	off(event,func){
-		this.ctcanvas.removeObserver(event, func, this);
+	off(ctevent){
+		this.ctcanvas.removeObserver(ctevent,this);
 	}
 }
 class ctFillRect extends ctObj{
