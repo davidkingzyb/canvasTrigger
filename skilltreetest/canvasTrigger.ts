@@ -1,3 +1,5 @@
+//=============core=================
+
 class ctCanvas{
 	canvas;
 	context;
@@ -74,6 +76,7 @@ class ctCanvas{
 	}
 
 }
+
 class ctObj{
 	context;
 	ctcanvas;
@@ -94,6 +97,9 @@ class ctObj{
 		this.ctcanvas.removeObserver(ctevent,this);
 	}
 }
+
+//===========obj=================
+
 class ctFillRect extends ctObj{
 	fillStyle;
 	constructor(x,y,w,h,fillStyle){
@@ -104,4 +110,26 @@ class ctFillRect extends ctObj{
 		this.context.fillStyle = this.fillStyle;
 		this.context.fillRect(this.x, this.y, this.w, this.h);
 	}
+}
+
+//==========animation=============
+
+function animation(update,context){
+	var current = new Date().getTime();
+	var acc = 0;
+	var dt = 20;
+	var fps = 50;
+	var time = Math.ceil(1000/this.fps);
+	function loop() {
+        var now = new Date().getTime();
+        var passed= now - current; 
+        current = now;
+        acc+=passed;
+        while(acc>=dt){
+			update();
+			acc-=dt;
+        }
+        context.drawCanvas();
+    }
+	return setInterval(loop, time);
 }

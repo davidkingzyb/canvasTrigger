@@ -1,3 +1,4 @@
+//=============core=================
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -83,6 +84,7 @@ var ctObj = (function () {
     };
     return ctObj;
 })();
+//===========obj=================
 var ctFillRect = (function (_super) {
     __extends(ctFillRect, _super);
     function ctFillRect(x, y, w, h, fillStyle) {
@@ -95,3 +97,23 @@ var ctFillRect = (function (_super) {
     };
     return ctFillRect;
 })(ctObj);
+//==========animation=============
+function animation(update, context) {
+    var current = new Date().getTime();
+    var acc = 0;
+    var dt = 20;
+    var fps = 50;
+    var time = Math.ceil(1000 / this.fps);
+    function loop() {
+        var now = new Date().getTime();
+        var passed = now - current;
+        current = now;
+        acc += passed;
+        while (acc >= dt) {
+            update();
+            acc -= dt;
+        }
+        context.drawCanvas();
+    }
+    return setInterval(loop, time);
+}

@@ -21,4 +21,9 @@ window.onload=function(){
 		console.log('bbbbbbbb')
 		ctcanvas.removeObj(a);
 	}
+
+	var aaaaa=animation(function(){a.x++},ctcanvas);
+	//clearInterval(aaaaa)
+	var bbbbb=animation(function(){b.x++;if(b.x>400){clearInterval(bbbbb)}},ctcanvas);
+
 };
