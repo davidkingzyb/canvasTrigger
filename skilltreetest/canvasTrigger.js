@@ -52,7 +52,7 @@ var ctCanvas = (function () {
         for (var i = 0; i < this[ctEvent + 'Observers'].length; i++) {
             var obj = this[ctEvent + 'Observers'][i];
             if (layerX > obj.x && layerX < (obj.x + obj.w) && layerY > obj.y && layerY < (obj.y + obj.h)) {
-                this[ctEvent + 'Functions'][i].call(obj);
+                this[ctEvent + 'Functions'][i].call(obj, e);
             }
         }
     };
@@ -70,39 +70,54 @@ var ctCanvas = (function () {
     return ctCanvas;
 })();
 var ctObj = (function () {
-    function ctObj(x, y, w, h) {
+    function ctObj(x, y, w, h, alpha) {
         this.x = x || 0;
         this.y = y || 0;
-        this.w = w || 0;
-        this.h = h || 0;
+        this.w = w || 100;
+        this.h = h || 100;
+        this.alpha = alpha || 1;
     }
+    ctObj.prototype.superdraw = function () {
+        this.context.globalAlpha = this.alpha;
+    };
     ctObj.prototype.on = function (ctevent, func) {
         this.ctcanvas.registerObserver(ctevent, func, this);
     };
     ctObj.prototype.off = function (ctevent) {
         this.ctcanvas.removeObserver(ctevent, this);
     };
+    //linear tween
+    ctObj.prototype.to = function (args, time, callback) {
+        var dt = 20;
+        var step = time / dt;
+        var vx = args.x ? (args.x - this.x) / time * dt : 0;
+        var vy = args.y ? (args.y - this.y) / time * dt : 0;
+        var vw = args.w ? (args.w - this.w) / time * dt : 0;
+        var vh = args.h ? (args.h - this.h) / time * dt : 0;
+        var valpha = args.alpha ? (args.alpha - this.alpha) / time * dt : 0;
+        var that = this;
+        var animate = animation(function () {
+            that.x += vx;
+            that.y += vy;
+            that.w += vw;
+            that.h += vh;
+            that.alpha += valpha;
+            step--;
+            if (step <= 0) {
+                clearInterval(animate);
+                callback();
+            }
+        }, this.ctcanvas, dt);
+    };
     return ctObj;
 })();
-//===========obj=================
-var ctFillRect = (function (_super) {
-    __extends(ctFillRect, _super);
-    function ctFillRect(x, y, w, h, fillStyle) {
-        _super.call(this, x, y, w, h);
-        this.fillStyle = fillStyle;
-    }
-    ctFillRect.prototype.draw = function () {
-        this.context.fillStyle = this.fillStyle;
-        this.context.fillRect(this.x, this.y, this.w, this.h);
-    };
-    return ctFillRect;
-})(ctObj);
 //==========animation=============
-function animation(update, context) {
+//time base animation
+function animation(update, context, dt, fps) {
     var current = new Date().getTime();
     var acc = 0;
-    var dt = 20;
-    var fps = 50;
+    var dt = dt || 20;
+    var fps = fps || 50;
     var time = Math.ceil(1000 / this.fps);
     function loop() {
         var now = new Date().getTime();
@@ -117,3 +132,33 @@ function animation(update, context) {
     }
     return setInterval(loop, time);
 }
+//===========obj=================
+var ctFillRect = (function (_super) {
+    __extends(ctFillRect, _super);
+    function ctFillRect(fillStyle, x, y, w, h, alpha) {
+        _super.call(this, x, y, w, h, alpha);
+        this.fillStyle = fillStyle || '#000';
+    }
+    ctFillRect.prototype.draw = function () {
+        this.superdraw();
+        this.context.fillStyle = this.fillStyle;
+        this.context.fillRect(this.x, this.y, this.w, this.h);
+    };
+    return ctFillRect;
+})(ctObj);
+var ctFillText = (function (_super) {
+    __extends(ctFillText, _super);
+    function ctFillText(text, font, fillStyle, x, y, w, h, alpha) {
+        _super.call(this, x, y, w, h, alpha);
+        this.text = text || '';
+        this.font = font || '50px helvetica';
+        this.fillStyle = fillStyle || '#000';
+    }
+    ctFillText.prototype.draw = function () {
+        this.superdraw();
+        this.context.font = this.font;
+        this.context.fillStyle = this.fillStyle;
+        this.context.fillText(this.text, this.x, this.y, this.w);
+    };
+    return ctFillText;
+})(ctObj);
