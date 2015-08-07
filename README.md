@@ -1,6 +1,6 @@
 #canvasTrigger
 
-**define object in canvas and dispatch canvas event to those object.**
+**define objects in canvas and dispatch canvas event to those objects.**
 
 2015/8/3 by DKZ
 
@@ -22,11 +22,35 @@ a.on('click',function(){
 
 ###ctCanvas(id)
 
+create a ctCanvas object.
+
+id:string <canvas>id
+
 ```
 var ctcanvas=new ctCanvas('canvas');
 ```
 
+####canvas:any
+
+canvas object get by id.
+
+####context:any
+
+canvas context .
+
+####objs:array<string>
+
+ctObj objects array store ctObjs which add in this ctcanvas.
+
+####triggers:array<string>
+
+event type array store ctEvent string.
+
 ####addTrigger(ctEvent)
+
+add event type to ctCanvas.
+
+ctEvent:string event type.
 
 ```
 ctcanvas.addTrigger('click');
@@ -34,11 +58,17 @@ ctcanvas.addTrigger('click');
 
 ####addObj(obj)
 
+add ctObj to ctCanvas and draw it.
+
+obj:ctObj
+
 ```
 ctcanvas.addObj(a);
 ```
 
 ####removeObj(obj)
+
+remove ctObj from ctCanvas remove all event of this ctObj and draw canvas again.
 
 ```
 ctcanvas.removeObj(a);
@@ -46,11 +76,15 @@ ctcanvas.removeObj(a);
 
 ####offObj(obj)
 
+remove all event of this ctObj.
+
 ```
 ctcanvas.offObj(obj);
 ```
 
 ####drawCanvas()
+
+draw all ctObj objects in canvas.
 
 ```
 ctcanvas.drawCanvas();
@@ -58,13 +92,65 @@ ctcanvas.drawCanvas();
 
 ####Notify(e,ctEvent)
 
+call observer's function
+
+e:event 
+
+ctEvent:string event type.
+
 ####registerObserver(ctEvent,func,obj)
+
+register a observer 
+
+ctEvent:string event type.
+
+func:any this function will be execute after the event
+
+obj:ctObj 
 
 ####removeObserver(ctEvent,obj)
 
+remove observer from ctobj.
+
 ###ctObj(x?,y?,w?,h?)
 
+super class of all object
+
+####context:any
+
+canvas context
+
+####ctcanvas:ctCanvas
+
+ctCanvas which contain this 
+
+####x:number
+
+x coordinate of this  default=0
+
+####y:number
+
+y coordinate of this  default=0
+
+####w:number
+
+width of this  default=100
+
+####h:number
+
+height of this  default=100
+
+####alpha:number
+
+alpha of this default=1
+
 ####on(ctevent,func)
+
+add a event listener of this
+
+ctevent:string 
+
+func:function 
 
 ```
 a.on('click',function(){
@@ -74,13 +160,41 @@ a.on('click',function(){
 
 ####off(ctevent)
 
+remove the event listener of this
+
+ctevent:string
+
 ```
 a.off('click');
 ```
 
+####superdraw()
+
+set globalAlpha
+
+####to(args,time,callback)
+
+a linear tween animation
+
+args:object ctObj's attribute
+
+time:number time during animation 
+
+callback:function the callback function
+
+```
+obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){console.log('end')});
+```
+
 ###ctFillRect(x,y,w,h,fillStyle)
 
-extends ctObj
+extends ctObj 
+
+a fill rect object
+
+####fillStyle:string
+
+context fillStyle default='#000'
 
 ####draw()
 
