@@ -40,13 +40,16 @@ class ctCanvas{
 	}
 
 	addTrigger(ctEvent){
-		this.triggers.push(ctEvent);
-		this[ctEvent + 'Observers'] = [];
-		this[ctEvent + 'Functions'] = [];
-		var that = this;
-		this.canvas['on'+ctEvent]=function(e){
+		if(this.triggers.indexOf(ctEvent)===-1){
+			this.triggers.push(ctEvent);
+			this[ctEvent + 'Observers'] = [];
+			this[ctEvent + 'Functions'] = [];
+			var that = this;
+			this.canvas['on'+ctEvent]=function(e){
 			that.Notify(e, ctEvent);
 		}
+		}
+		
 	}
 
 	Notify(e,ctEvent){
@@ -146,6 +149,46 @@ function animation(update,context,dt?,fps?){
 	return setInterval(loop, time);
 }
 
+//============debug==============
+
+function showPosition(target,ctcanvas){
+		ctcanvas.addTrigger('mousemove');
+		ctcanvas.addTrigger('mousedown');
+		ctcanvas.addTrigger('mouseup');
+		var coordinate = new ctFillText('[' + target.x + ',' + target.y + ']', '3px Arial', '#f00', target.x, target.y);
+		ctcanvas.addObj(coordinate);
+		var border = new ctStrokeRect('#f00', 1, target.x, target.y, target.w, target.h);
+		ctcanvas.addObj(border);
+		var startX;
+        var startY;
+        var targetStartX;
+        var targetStartY;
+        var ismove = false;
+		target.on('mousedown',function(e){
+			targetStartX = target.x;
+			targetStartY = target.y;
+			startX = e.layerX;
+			startY = e.layerY;
+			ismove = true;
+			console.log('x','y','width','height');
+		})
+		target.on('mousemove',function(e){
+			if(ismove){
+				target.x=Math.ceil(targetStartX+(e.layerX - startX));
+            	target.y=Math.ceil(targetStartY+(e.layerY - startY));
+            	coordinate.text='['+parseInt(target.x)+','+parseInt(target.y)+']';
+            	coordinate.x=target.x;
+            	coordinate.y=target.y;
+            	border.x=target.x;
+            	border.y=target.y;
+            	ctcanvas.drawCanvas();
+			}
+		})
+		target.on('mouseup',function(e){
+			ismove = false;
+			console.log(target.x,target.y,target.w,target.h);
+		})
+}
 
 //===========obj=================
 
@@ -159,6 +202,22 @@ class ctFillRect extends ctObj{
 		this.superdraw();
 		this.context.fillStyle = this.fillStyle;
 		this.context.fillRect(this.x, this.y, this.w, this.h);
+	}
+}
+
+class ctStrokeRect extends ctObj{
+	strokeStyle;
+	lineWidth;
+	constructor(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?){
+		super(x,y,w,h,alpha);
+		this.strokeStyle=strokeStyle||'#f00';
+		this.lineWidth=lineWidth||1;
+	}
+	draw(){
+		this.superdraw();
+		this.context.strokeStyle=this.strokeStyle;
+		this.context.lineWidth=this.lineWidth;
+		this.context.strokeRect(this.x,this.y,this.w,this.h);
 	}
 }
 
@@ -179,4 +238,6 @@ class ctFillText extends ctObj{
 		this.context.fillText(this.text,this.x,this.y);
 	}
 }
+
+
 

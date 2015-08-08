@@ -2,23 +2,28 @@ window.onload=function(){
 	var ctcanvas=new ctCanvas('skilltree');
 	ctcanvas.addTrigger('click');
 	ctcanvas.addTrigger('mousemove');
+	ctcanvas.addTrigger('mousedown');
+	ctcanvas.addTrigger('mouseup');
 
-	var a=new ctFillRect();
+	var a=new ctFillRect('#000',100,100);
 	ctcanvas.addObj(a);
-	a.on('click',aclick);
+	//a.on('click',aclick);
+
+	showPosition(a,ctcanvas);
+
 	amousein=false;
-	a.on('mousemove',function(e){
-		if(!amousein){
-			console.log('amousein');
-			amousein=true;
-		}
-		if(amousein){
-			if(e.layerX<a.x+10||e.layerX>a.x+a.w-10||e.layerY<a.y+10||e.layerY>a.y+a.h-10){
-				console.log('amouseout');
-				amousein=false;
-			}
-		}
-	});
+	// a.on('mousemove',function(e){
+	// 	if(!amousein){
+	// 		console.log('amousein');
+	// 		amousein=true;
+	// 	}
+	// 	if(amousein){
+	// 		if(e.layerX<a.x+10||e.layerX>a.x+a.w-10||e.layerY<a.y+10||e.layerY>a.y+a.h-10){
+	// 			console.log('amouseout');
+	// 			amousein=false;
+	// 		}
+	// 	}
+	// });
 	function aclick(){
 		console.log('aaaaaaaaaa')
 		a.x+=5;
@@ -39,4 +44,6 @@ window.onload=function(){
 	b.to({x:-50,alpha:.1,y:0,w:100},1000,function(){console.log('tofinish')});
 	var txt=new ctFillText('ttt','40px Arial','#f00',200,100);
 	ctcanvas.addObj(txt);
+	var strokeRect=new ctStrokeRect();
+	ctcanvas.addObj(strokeRect);
 };

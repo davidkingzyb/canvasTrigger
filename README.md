@@ -22,6 +22,8 @@ a.on('click',function(){
 
 ###ctCanvas(id)
 
+***
+
 create a ctCanvas object.
 
 id:string <canvas>id
@@ -114,6 +116,8 @@ remove observer from ctobj.
 
 ###ctObj(x?,y?,w?,h?)
 
+***
+
 super class of all object
 
 ####context:any
@@ -188,6 +192,8 @@ obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){console.log('end')});
 
 ###animation(update,context,dt?fps?)
 
+***
+
 time base animation function
 
 update:function animation function
@@ -203,7 +209,23 @@ var animate=animation(function(){
 },ctcanvas,20,50);
 ```
 
-###ctFillRect(x,y,w,h,fillStyle)
+###showPosition(target,ctcanvas)
+
+***
+
+show ctObj position and make it dragable
+
+####target:ctObj target object
+
+####ctcanvas:ctCanvas 
+
+```
+showPosition(a,ctcanvas);
+```
+
+###ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
+
+***
 
 extends ctObj 
 
@@ -222,9 +244,23 @@ ctcanvas.addObj(obj);
 
 draw this object
 
-###ctFillText
+###ctStrokeRext(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
 
-extends ctObj(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
+***
+
+####strokeStyle:string context strokeStyle default='#f00'
+
+####lineWidth:number context lineWidth default=1
+
+####draw()
+
+draw this object
+
+###ctFillText(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
+
+***
+
+extends ctObj
 
 a fill text object
 
