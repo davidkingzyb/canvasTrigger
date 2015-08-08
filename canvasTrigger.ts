@@ -98,7 +98,7 @@ class ctObj{
 	off(ctevent){
 		this.ctcanvas.removeObserver(ctevent,this);
 	}
-	//linear tween
+	//linear tween animation
 	to(args,time,callback){
 		var dt=20;
 		var step=time/dt;

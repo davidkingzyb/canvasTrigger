@@ -186,6 +186,23 @@ callback:function the callback function
 obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){console.log('end')});
 ```
 
+###animation(update,context,dt?fps?)
+
+time base animation function
+
+update:function animation function
+
+dt:number step time
+
+fps:number
+
+```
+var animate=animation(function(){
+	obj.x++;
+	if(obj.x>400){clearInterval(animate)};
+},ctcanvas,20,50);
+```
+
 ###ctFillRect(x,y,w,h,fillStyle)
 
 extends ctObj 
@@ -196,7 +213,40 @@ a fill rect object
 
 context fillStyle default='#000'
 
+```
+var obj=new ctFillRext();
+ctcanvas.addObj(obj);
+```
+
 ####draw()
 
+draw this object
+
+###ctFillText
+
+extends ctObj(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
+
+a fill text object
+
+####text:string 
+
+text default=''
+
+####font:string 
+
+text style default='40px Arial'
+
+```
+var txt=new ctFillText('hello world');
+ctcanvas.addObj(txt);
+```
+
+####fillStyle:string 
+
+fill color default='#000'
+
+####draw()
+
+draw this obj
 
 
