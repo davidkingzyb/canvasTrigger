@@ -46,8 +46,8 @@ class ctCanvas{
 			this[ctEvent + 'Functions'] = [];
 			var that = this;
 			this.canvas['on'+ctEvent]=function(e){
-			that.Notify(e, ctEvent);
-		}
+				that.Notify(e, ctEvent);
+			}
 		}
 		
 	}
@@ -236,6 +236,65 @@ class ctFillText extends ctObj{
 		this.context.fillStyle=this.fillStyle;
 		this.context.font=this.font;
 		this.context.fillText(this.text,this.x,this.y);
+	}
+}
+
+class ctFillCircle extends ctObj{
+	fillStyle;
+	ox;
+	oy;
+	r;
+	sangle;
+	eangle;
+	clockwise;
+	constructor(fillStyle?,ox?,oy?,r?,alpha?){
+		super(ox-r,oy-r,2*r,2*r,alpha);
+		this.fillStyle=fillStyle||'#000';
+		this.ox=ox||50;
+		this.oy=oy||50;
+		this.r=r||50;
+		this.sangle=0;
+		this.eangle=Math.PI*2;
+		this.alpha=alpha||1;
+		this.clockwise=true;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.closePath();
+		this.context.fill();
+	}
+}
+
+class ctFillArc extends ctObj{
+	fillStyle;
+	ox;
+	oy;
+	r;
+	sangle;
+	eangle;
+	clockwise;
+	constructor(fillStyle?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?){
+		super(ox-r,oy-r,2*r,2*r,alpha);
+		this.fillStyle=fillStyle||'#000';
+		this.ox=ox||50;
+		this.oy=oy||50;
+		this.r=r||50;
+		this.sangle=sangle/180*Math.PI||0;
+		this.eangle=eangle/180*Math.PI||Math.PI*2;
+		this.alpha=alpha||1;
+		this.clockwise=clockwise||true;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.lineTo(this.x+this.r,this.y+this.r);
+		this.context.closePath();
+		this.context.fill();
 	}
 }
 

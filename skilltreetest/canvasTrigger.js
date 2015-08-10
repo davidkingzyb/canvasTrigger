@@ -218,3 +218,50 @@ var ctFillText = (function (_super) {
     };
     return ctFillText;
 })(ctObj);
+var ctFillCircle = (function (_super) {
+    __extends(ctFillCircle, _super);
+    function ctFillCircle(fillStyle, ox, oy, r, alpha) {
+        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
+        this.fillStyle = fillStyle || '#000';
+        this.ox = ox || 50;
+        this.oy = oy || 50;
+        this.r = r || 50;
+        this.sangle = 0;
+        this.eangle = Math.PI * 2;
+        this.alpha = alpha || 1;
+        this.clockwise = true;
+    }
+    ctFillCircle.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.closePath();
+        this.context.fill();
+    };
+    return ctFillCircle;
+})(ctObj);
+var ctFillArc = (function (_super) {
+    __extends(ctFillArc, _super);
+    function ctFillArc(fillStyle, ox, oy, r, sangle, eangle, alpha, clockwise) {
+        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
+        this.fillStyle = fillStyle || '#000';
+        this.ox = ox || 50;
+        this.oy = oy || 50;
+        this.r = r || 50;
+        this.sangle = sangle / 180 * Math.PI || 0;
+        this.eangle = eangle / 180 * Math.PI || Math.PI * 2;
+        this.alpha = alpha || 1;
+        this.clockwise = clockwise || true;
+    }
+    ctFillArc.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.lineTo(this.x + this.r, this.y + this.r);
+        this.context.closePath();
+        this.context.fill();
+    };
+    return ctFillArc;
+})(ctObj);
