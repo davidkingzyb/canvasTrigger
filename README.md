@@ -187,7 +187,9 @@ time:number time during animation
 callback:function the callback function
 
 ```
-obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){console.log('end')});
+obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){
+	console.log('end');
+});
 ```
 
 ###animation(update,context,dt?fps?)
@@ -215,9 +217,11 @@ var animate=animation(function(){
 
 show ctObj position and make it dragable
 
-####target:ctObj target object
+target:ctObj 
 
-####ctcanvas:ctCanvas 
+target object
+
+ctcanvas:ctCanvas 
 
 ```
 showPosition(a,ctcanvas);
@@ -229,28 +233,38 @@ showPosition(a,ctcanvas);
 
 extends ctObj 
 
-a fill rect object
-
-####fillStyle:string
-
-context fillStyle default='#000'
+a fill rectangle object
 
 ```
 var obj=new ctFillRext();
 ctcanvas.addObj(obj);
 ```
 
+####fillStyle:string
+
+context fillStyle default='#000'
+
 ####draw()
 
 draw this object
 
-###ctStrokeRext(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
+###ctStrokeRect(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
 
 ***
 
-####strokeStyle:string context strokeStyle default='#f00'
+stroke rectangle object
 
-####lineWidth:number context lineWidth default=1
+```
+var strokerect =new ctStrokeRect('#f00',1,50,50,50,50,1);
+```
+
+####strokeStyle:string 
+
+context strokeStyle default='#f00'
+
+####lineWidth:number 
+
+context lineWidth default=1
 
 ####draw()
 
@@ -264,6 +278,11 @@ extends ctObj
 
 a fill text object
 
+```
+var txt=new ctFillText('hello world');
+ctcanvas.addObj(txt);
+```
+
 ####text:string 
 
 text default=''
@@ -272,11 +291,6 @@ text default=''
 
 text style default='40px Arial'
 
-```
-var txt=new ctFillText('hello world');
-ctcanvas.addObj(txt);
-```
-
 ####fillStyle:string 
 
 fill color default='#000'
@@ -284,5 +298,94 @@ fill color default='#000'
 ####draw()
 
 draw this obj
+
+###ctFillCircle(fillStyle?,ox?,oy?,r?,alpha?)
+
+***
+
+extends ctObj
+
+circle object
+
+```
+var circle=new ctFillCircle();
+```
+
+####fillStyle:string 
+
+fill color default='#000'
+
+####ox:number 
+
+center of the circle coordinate x default=50
+
+####oy:number 
+
+center of the circle coordinate y default=50
+
+####r:number 
+
+radius of the circle default=50
+
+####alpha:number 
+
+default=1
+
+####draw()
+
+draw circle
+
+###ctFillArc(fillStyle?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
+
+***
+
+extends ctObj
+
+```
+var fillarc=new ctFillArc('#000',50,50,50,30,180,1,true);
+```
+
+####fillStyle:string 
+
+fill color default='#000'
+
+####ox:number 
+
+center of the circle coordinate x default=50
+
+####oy:number 
+
+center of the circle coordinate y default=50
+
+####r:number 
+
+radius of the circle default=50
+
+####alpha:number 
+
+default=1
+
+####sangle:number
+
+start angle default=0
+
+####eangle:number
+
+end angle default=Math.PI*2
+
+####clockwise:boolean
+
+default=true
+
+####draw()
+
+draw this object
+
+
+
+
+
+
+
 
 

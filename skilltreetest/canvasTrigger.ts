@@ -298,5 +298,34 @@ class ctFillArc extends ctObj{
 	}
 }
 
+class skillArc extends ctObj{
+	fillStyle;
+	ox;
+	oy;
+	r;
+	sangle;
+	eangle;
+	clockwise;
+	constructor(fillStyle,sangle,eangle,r,clockwise?){
+		super(200,200,200,200,1);
+		this.fillStyle=fillStyle;
+		this.ox=300;
+		this.oy=300;
+		this.r=r;
+		this.sangle=sangle;
+		this.eangle=eangle;
+		this.clockwise=clockwise||true;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.ox+this.r,this.oy+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.lineTo(this.ox,this.oy);
+		this.context.closePath();
+		this.context.fill();
+	}
+}
+
 
 
