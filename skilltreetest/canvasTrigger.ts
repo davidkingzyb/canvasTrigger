@@ -17,6 +17,12 @@ class ctCanvas{
 		obj.draw();
 	}
 
+	addObjs(objarr){
+		for(var i=0;i<objarr.length;i++){
+			this.addObj(objarr[i]);
+		}
+	}
+
 	removeObj(obj){
 		var index = this.objs.indexOf(obj);
 		if(index>=0){
@@ -24,6 +30,12 @@ class ctCanvas{
 		}
 		this.offObj(obj);
 		this.drawCanvas();
+	}
+
+	removeObjs(objarr){
+		for(var i=0;i<objarr.length;i++){
+			this.removeObj(objarr[i]);
+		}
 	}
 
 	offObj(obj){
@@ -189,6 +201,11 @@ function showPosition(target,ctcanvas){
 			console.log(target.x,target.y,target.w,target.h);
 		})
 }
+function showPositions(targetarr,ctcanvas){
+	for(var i=0;i<targetarr.length;i++){
+		showPosition(targetarr[i],ctcanvas);
+	}
+}
 
 //===========obj=================
 
@@ -320,10 +337,40 @@ class skillArc extends ctObj{
 		this.superdraw();
 		this.context.beginPath();
 		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.ox+this.r,this.oy+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.arc(this.ox,this.oy,this.r,this.sangle,this.eangle,this.clockwise);
 		this.context.lineTo(this.ox,this.oy);
 		this.context.closePath();
 		this.context.fill();
+	}
+}
+
+class skillNode extends ctObj{
+	fillStyle;
+	nodetext;
+	r;
+	constructor(nodetext,fillStyle,x?,y?){
+		super(x||270,y||270,60,60,1);
+		this.fillStyle=fillStyle||'#555';
+		this.nodetext=nodetext;
+		this.r=25;
+
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.x+30,this.y+30,this.r,0,Math.PI*2,true);
+		this.context.closePath();
+		this.context.fill();
+		this.context.fillStyle='#fff';
+		var xplus=0;
+		if(this.nodetext.length>6){
+			this.context.font='7px Arial';
+			xplus=4;
+		}else{
+			this.context.font='15px Arial';
+		}
+		this.context.fillText(this.nodetext,this.x+xplus+30-this.context.measureText(this.nodetext).width/2,this.y+35,50);
 	}
 }
 
