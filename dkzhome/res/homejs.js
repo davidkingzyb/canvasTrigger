@@ -11,10 +11,40 @@ function fullPage(){
 	var skillconY=skillcon.getBoundingClientRect().top+document.body.scrollTop;
 	var expconY=expcon.getBoundingClientRect().top+document.body.scrollTop;
 	var contactconY=contactcon.getBoundingClientRect().top+document.body.scrollTop;
+	var navul=document.getElementById('navul');
+	var conY=[homeconY,skillconY,expconY,contactconY];
+	navul.onclick=function(e){
+		var toY=conY[Number(e.target.id.substring(3))];
+		scrollToAnimate(toY);
+	}
+	var prevY=0;
+	window.onscroll=function(e){
+		var nowY=document.documentElement.scrollTop+document.body.scrollTop;
+		console.log()
 
+	}
 }
+var isscrolling=false;
 function scrollToAnimate(y){
-	window.scrollTo(0,y);
+	if(!isscrolling){
+	isscrolling=true;
+	var nowY=document.documentElement.scrollTop+document.body.scrollTop;
+	var step=(y-nowY)/50;
+	var count=50;
+	function animateloop(){
+		nowY+=step;
+		count--;
+		window.scrollTo(0,nowY);
+		if(count>0){
+			setTimeout(animateloop,10);
+		}else{
+			isscrolling=false;
+		}
+	}
+	animateloop();
+
+	}
+	
 }
 function setHomeWH(){
 	var homecon=document.getElementById('homecon');
@@ -24,18 +54,18 @@ function setHomeWH(){
 
 	homecon.style.width='100%';
 	homecon.style.height=window.innerHeight+'px';
-	homecon.style.backgroundColor='red';
+	homecon.style.backgroundColor='#555';
 
 	skillcon.style.width='100%';
 	skillcon.style.height=window.innerHeight+'px';
-	skillcon.style.backgroundColor='yellow';
+	skillcon.style.backgroundColor='#444';
 
 	expcon.style.width='100%';
 	expcon.style.height=window.innerHeight+'px';
-	expcon.style.backgroundColor='green';
+	expcon.style.backgroundColor='#333';
 
 	contactcon.style.width='100%';
 	contactcon.style.height=window.innerHeight+'px';
-	contactcon.style.backgroundColor='blue';
+	contactcon.style.backgroundColor='#222';
 
 }

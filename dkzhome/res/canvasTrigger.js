@@ -18,6 +18,11 @@ var ctCanvas = (function () {
         obj.context = this.context;
         obj.draw();
     };
+    ctCanvas.prototype.addObjs = function (objarr) {
+        for (var i = 0; i < objarr.length; i++) {
+            this.addObj(objarr[i]);
+        }
+    };
     ctCanvas.prototype.removeObj = function (obj) {
         var index = this.objs.indexOf(obj);
         if (index >= 0) {
@@ -25,6 +30,11 @@ var ctCanvas = (function () {
         }
         this.offObj(obj);
         this.drawCanvas();
+    };
+    ctCanvas.prototype.removeObjs = function (objarr) {
+        for (var i = 0; i < objarr.length; i++) {
+            this.removeObj(objarr[i]);
+        }
     };
     ctCanvas.prototype.offObj = function (obj) {
         for (var i = 0; i < this.triggers.length; i++) {
@@ -173,6 +183,11 @@ function showPosition(target, ctcanvas) {
         console.log(target.x, target.y, target.w, target.h);
     });
 }
+function showPositions(targetarr, ctcanvas) {
+    for (var i = 0; i < targetarr.length; i++) {
+        showPosition(targetarr[i], ctcanvas);
+    }
+}
 //===========obj=================
 var ctFillRect = (function (_super) {
     __extends(ctFillRect, _super);
@@ -217,4 +232,102 @@ var ctFillText = (function (_super) {
         this.context.fillText(this.text, this.x, this.y);
     };
     return ctFillText;
+})(ctObj);
+var ctFillCircle = (function (_super) {
+    __extends(ctFillCircle, _super);
+    function ctFillCircle(fillStyle, ox, oy, r, alpha) {
+        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
+        this.fillStyle = fillStyle || '#000';
+        this.ox = ox || 50;
+        this.oy = oy || 50;
+        this.r = r || 50;
+        this.sangle = 0;
+        this.eangle = Math.PI * 2;
+        this.alpha = alpha || 1;
+        this.clockwise = true;
+    }
+    ctFillCircle.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.closePath();
+        this.context.fill();
+    };
+    return ctFillCircle;
+})(ctObj);
+var ctFillArc = (function (_super) {
+    __extends(ctFillArc, _super);
+    function ctFillArc(fillStyle, ox, oy, r, sangle, eangle, alpha, clockwise) {
+        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
+        this.fillStyle = fillStyle || '#000';
+        this.ox = ox || 50;
+        this.oy = oy || 50;
+        this.r = r || 50;
+        this.sangle = sangle / 180 * Math.PI || 0;
+        this.eangle = eangle / 180 * Math.PI || Math.PI * 2;
+        this.alpha = alpha || 1;
+        this.clockwise = clockwise || true;
+    }
+    ctFillArc.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.lineTo(this.x + this.r, this.y + this.r);
+        this.context.closePath();
+        this.context.fill();
+    };
+    return ctFillArc;
+})(ctObj);
+var skillArc = (function (_super) {
+    __extends(skillArc, _super);
+    function skillArc(fillStyle, sangle, eangle, r, clockwise) {
+        _super.call(this, 200, 200, 200, 200, 1);
+        this.fillStyle = fillStyle;
+        this.ox = 300;
+        this.oy = 300;
+        this.r = r;
+        this.sangle = sangle;
+        this.eangle = eangle;
+        this.clockwise = clockwise || true;
+    }
+    skillArc.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.ox, this.oy, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.lineTo(this.ox, this.oy);
+        this.context.closePath();
+        this.context.fill();
+    };
+    return skillArc;
+})(ctObj);
+var skillNode = (function (_super) {
+    __extends(skillNode, _super);
+    function skillNode(nodetext, fillStyle, x, y) {
+        _super.call(this, x || 270, y || 270, 60, 60, 1);
+        this.fillStyle = fillStyle || '#555';
+        this.nodetext = nodetext;
+        this.r = 25;
+    }
+    skillNode.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle = this.fillStyle;
+        this.context.arc(this.x + 30, this.y + 30, this.r, 0, Math.PI * 2, true);
+        this.context.closePath();
+        this.context.fill();
+        this.context.fillStyle = '#fff';
+        var xplus = 0;
+        if (this.nodetext.length > 6) {
+            this.context.font = '7px Arial';
+            xplus = 4;
+        }
+        else {
+            this.context.font = '15px Arial';
+        }
+        this.context.fillText(this.nodetext, this.x + xplus + 30 - this.context.measureText(this.nodetext).width / 2, this.y + 35, 50);
+    };
+    return skillNode;
 })(ctObj);

@@ -10,7 +10,7 @@ a{
 }
 #navul li{
 	list-style-type: none;
-	border:1px solid white;
+	border:2px solid white;
 	width:30px;
 	height: 30px;
 	line-height: 30px;
@@ -19,6 +19,9 @@ a{
 	font-family: helvetica , sans-serif , Arial;
 }
 #navul li:hover{
-	border:2px solid white;
+	border:3px solid white;
 	font-weight: bold;
+}
+#nav4{
+	border-radius: 15px;
 }
