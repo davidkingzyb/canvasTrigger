@@ -329,9 +329,9 @@ class skillArc extends ctObj{
 		this.ox=300;
 		this.oy=300;
 		this.r=r;
-		this.sangle=sangle;
-		this.eangle=eangle;
-		this.clockwise=clockwise||true;
+		this.sangle=sangle*Math.PI/180||0;
+		this.eangle=eangle*Math.PI/180||Math.PI*2;
+		this.clockwise=clockwise||false;
 	}
 	draw(){
 		this.superdraw();

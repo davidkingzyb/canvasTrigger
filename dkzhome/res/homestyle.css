@@ -2,10 +2,15 @@ a{
 	text-decoration: none;
 	color:white;
 }
+body{
+	margin:0px;
+	padding: 0px;
+}
 #navul{
 	position: fixed;
 	color: white;
-	top:45%;
+	margin-top:-60px;
+	top:50%;
 	right: 5%;
 }
 #navul li{
@@ -17,6 +22,11 @@ a{
 	margin: 5px;
 	text-align: center;
 	font-family: helvetica , sans-serif , Arial;
+}
+.navNow{
+	border:3px solid #82dffb !important;
+	font-weight: bold;
+	color:#82dffb;
 }
 #navul li:hover{
 	border:3px solid white;
