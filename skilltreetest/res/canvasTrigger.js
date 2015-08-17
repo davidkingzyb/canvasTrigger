@@ -386,9 +386,13 @@ var skillNode = (function (_super) {
         this.context.fill();
         this.context.fillStyle = '#fff';
         var xplus = 0;
-        if (this.nodetext.length > 6) {
+        if (this.nodetext.length > 9) {
             this.context.font = '7px Arial';
             xplus = 4;
+        }
+        else if (this.nodetext.length > 6) {
+            this.context.font = '7px Arial';
+            xplus = 0;
         }
         else {
             this.context.font = '15px Arial';
