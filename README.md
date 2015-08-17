@@ -6,6 +6,10 @@
 
 
 
+[github](https://github.com/davidkingzyb/canvasTrigger)
+
+##quick example
+
 ```
 var ctcanvas=new ctCanvas('canvas');
 ctcanvas.addTrigger('click');
@@ -32,23 +36,23 @@ id:string <canvas>id
 var ctcanvas=new ctCanvas('canvas');
 ```
 
-####canvas:any
+##### canvas:any
 
 canvas object get by id.
 
-####context:any
+##### context:any
 
 canvas context .
 
-####objs:array<string>
+##### objs:array<string>
 
 ctObj objects array store ctObjs which add in this ctcanvas.
 
-####triggers:array<string>
+##### triggers:array<string>
 
 event type array store ctEvent string.
 
-####addTrigger(ctEvent)
+##### addTrigger(ctEvent)
 
 add event type to ctCanvas.
 
@@ -58,7 +62,7 @@ ctEvent:string event type.
 ctcanvas.addTrigger('click');
 ```
 
-####addObj(obj)
+##### addObj(obj)
 
 add ctObj to ctCanvas and draw it.
 
@@ -68,7 +72,7 @@ obj:ctObj
 ctcanvas.addObj(a);
 ```
 
-####removeObj(obj)
+##### removeObj(obj)
 
 remove ctObj from ctCanvas remove all event of this ctObj and draw canvas again.
 
@@ -76,7 +80,7 @@ remove ctObj from ctCanvas remove all event of this ctObj and draw canvas again.
 ctcanvas.removeObj(a);
 ```
 
-####offObj(obj)
+##### offObj(obj)
 
 remove all event of this ctObj.
 
@@ -84,7 +88,7 @@ remove all event of this ctObj.
 ctcanvas.offObj(obj);
 ```
 
-####drawCanvas()
+##### drawCanvas()
 
 draw all ctObj objects in canvas.
 
@@ -92,7 +96,7 @@ draw all ctObj objects in canvas.
 ctcanvas.drawCanvas();
 ```
 
-####Notify(e,ctEvent)
+##### Notify(e,ctEvent)
 
 call observer's function
 
@@ -100,7 +104,7 @@ e:event
 
 ctEvent:string event type.
 
-####registerObserver(ctEvent,func,obj)
+##### registerObserver(ctEvent,func,obj)
 
 register a observer 
 
@@ -110,7 +114,7 @@ func:any this function will be execute after the event
 
 obj:ctObj 
 
-####removeObserver(ctEvent,obj)
+##### removeObserver(ctEvent,obj)
 
 remove observer from ctobj.
 
@@ -120,35 +124,35 @@ remove observer from ctobj.
 
 super class of all object
 
-####context:any
+##### context:any
 
 canvas context
 
-####ctcanvas:ctCanvas
+##### ctcanvas:ctCanvas
 
 ctCanvas which contain this 
 
-####x:number
+##### x:number
 
 x coordinate of this  default=0
 
-####y:number
+##### y:number
 
 y coordinate of this  default=0
 
-####w:number
+##### w:number
 
 width of this  default=100
 
-####h:number
+##### h:number
 
 height of this  default=100
 
-####alpha:number
+##### alpha:number
 
 alpha of this default=1
 
-####on(ctevent,func)
+##### on(ctevent,func)
 
 add a event listener of this
 
@@ -162,7 +166,7 @@ a.on('click',function(){
 });
 ```
 
-####off(ctevent)
+##### off(ctevent)
 
 remove the event listener of this
 
@@ -172,11 +176,11 @@ ctevent:string
 a.off('click');
 ```
 
-####superdraw()
+##### superdraw()
 
 set globalAlpha
 
-####to(args,time,callback)
+##### to(args,time,callback)
 
 a linear tween animation
 
@@ -240,11 +244,11 @@ var obj=new ctFillRext();
 ctcanvas.addObj(obj);
 ```
 
-####fillStyle:string
+##### fillStyle:string
 
 context fillStyle default='#000'
 
-####draw()
+##### draw()
 
 draw this object
 
@@ -258,15 +262,15 @@ stroke rectangle object
 var strokerect =new ctStrokeRect('#f00',1,50,50,50,50,1);
 ```
 
-####strokeStyle:string 
+##### strokeStyle:string 
 
 context strokeStyle default='#f00'
 
-####lineWidth:number 
+##### lineWidth:number 
 
 context lineWidth default=1
 
-####draw()
+##### draw()
 
 draw this object
 
@@ -283,21 +287,78 @@ var txt=new ctFillText('hello world');
 ctcanvas.addObj(txt);
 ```
 
-####text:string 
+##### text:string 
 
 text default=''
 
-####font:string 
+##### font:string 
 
 text style default='40px Arial'
 
-####fillStyle:string 
+##### fillStyle:string 
 
 fill color default='#000'
 
-####draw()
+##### draw()
 
 draw this obj
+
+###ctDrawImg(img,x?,y?,w?,h?,alpha?,sx?,sy?,sw?,sh?)
+
+***
+
+extends ctObj
+
+Image object
+
+```
+var skillheadimg=new Image();
+skillheadimg.src='res/img/skillhead.png';	
+skillheadimg.onload=function(){
+	skillhead=new ctDrawImg(skillheadimg,225,225);
+	ctcanvas.addObj(skillhead);
+}
+```
+
+##### img:Image
+
+sourse image texture 
+
+##### sx:number,sy:number,sw:number,sh:number
+
+x y coordination and width height of the sourse image.default = 0,0,img.width,img.height
+
+##### draw()
+
+draw image
+
+###ctLine(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?)
+
+***
+
+extends ctObj
+
+line obj (can not use trigger)
+
+```
+var line=new ctLine(skillnode.fillStyle,x||300,y||300,skillnode.x+30,skillnode.y+30,2,0.01);
+```
+
+##### strokeStyle:string
+
+strokeStyle
+
+##### lineWidth:number
+
+line width default=2
+
+##### sx:number,sy:number,ex:number,ey:number
+
+start x,start y,end x,end y coodination
+
+##### draw()
+
+draw line
 
 ###ctFillCircle(fillStyle?,ox?,oy?,r?,alpha?)
 
@@ -311,27 +372,27 @@ circle object
 var circle=new ctFillCircle();
 ```
 
-####fillStyle:string 
+##### fillStyle:string 
 
 fill color default='#000'
 
-####ox:number 
+##### ox:number 
 
 center of the circle coordinate x default=50
 
-####oy:number 
+##### oy:number 
 
 center of the circle coordinate y default=50
 
-####r:number 
+##### r:number 
 
 radius of the circle default=50
 
-####alpha:number 
+##### alpha:number 
 
 default=1
 
-####draw()
+##### draw()
 
 draw circle
 
@@ -345,41 +406,72 @@ extends ctObj
 var fillarc=new ctFillArc('#000',50,50,50,30,180,1,true);
 ```
 
-####fillStyle:string 
+##### fillStyle:string 
 
 fill color default='#000'
 
-####ox:number 
+##### ox:number 
 
 center of the circle coordinate x default=50
 
-####oy:number 
+##### oy:number 
 
 center of the circle coordinate y default=50
 
-####r:number 
+##### r:number 
 
 radius of the circle default=50
 
-####alpha:number 
+##### alpha:number 
 
 default=1
 
-####sangle:number
+##### sangle:number
 
 start angle default=0
 
-####eangle:number
+##### eangle:number
 
 end angle default=Math.PI*2
 
-####clockwise:boolean
+##### clockwise:boolean
 
 default=true
 
-####draw()
+##### draw()
 
 draw this object
+
+###ctStrokeArc(strokeStyle,lineWidth?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
+
+***
+
+extends ctObj
+
+stroke arc
+
+```
+var linearc=new ctStrokeArc('#574498',2,300,300,105,90,180,0.01);
+```
+
+##### strokeStyle:string
+
+stroke style 
+
+##### lineWidth:number
+
+line width default=2
+
+##### ox,oy,r,sangle,eangle:number
+
+same like ctFillArc
+
+##### draw()
+
+draw ctStrokeArc
+
+
+
 
 
 
