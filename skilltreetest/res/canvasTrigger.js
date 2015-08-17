@@ -117,7 +117,9 @@ var ctObj = (function () {
             step--;
             if (step <= 0) {
                 clearInterval(animate);
-                callback();
+                if (callback) {
+                    callback();
+                }
             }
         }, this.ctcanvas, dt);
     };
@@ -256,6 +258,70 @@ var ctFillCircle = (function (_super) {
     };
     return ctFillCircle;
 })(ctObj);
+var ctDrawImg = (function (_super) {
+    __extends(ctDrawImg, _super);
+    function ctDrawImg(img, x, y, w, h, alpha, sx, sy, sw, sh) {
+        _super.call(this, x, y, img.width, img.height, alpha);
+        this.img = img;
+        this.sx = sx || 0;
+        this.sy = sy || 0;
+        this.sw = sw || img.width;
+        this.sh = sh || img.height;
+    }
+    ctDrawImg.prototype.draw = function () {
+        this.superdraw();
+        this.context.drawImage(this.img, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.w, this.h);
+    };
+    return ctDrawImg;
+})(ctObj);
+var ctLine = (function (_super) {
+    __extends(ctLine, _super);
+    function ctLine(strokeStyle, sx, sy, ex, ey, lineWidth, alpha) {
+        _super.call(this, 1, 1, 1, 1, alpha);
+        this.strokeStyle = strokeStyle;
+        this.sx = sx;
+        this.sy = sy;
+        this.ex = ex;
+        this.ey = ey;
+        this.lineWidth = lineWidth || 2;
+    }
+    ctLine.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.strokeStyle = this.strokeStyle;
+        this.context.lineWidth = this.lineWidth;
+        this.context.moveTo(this.sx, this.sy);
+        this.context.lineTo(this.ex, this.ey);
+        this.context.stroke();
+        this.context.closePath();
+    };
+    return ctLine;
+})(ctObj);
+var ctStrokeArc = (function (_super) {
+    __extends(ctStrokeArc, _super);
+    function ctStrokeArc(strokeStyle, lineWidth, ox, oy, r, sangle, eangle, alpha, clockwise) {
+        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
+        this.strokeStyle = strokeStyle;
+        this.lineWidth = lineWidth || 2;
+        this.ox = ox || 50;
+        this.oy = oy || 50;
+        this.r = r || 50;
+        this.sangle = sangle / 180 * Math.PI || 0;
+        this.eangle = eangle / 180 * Math.PI || Math.PI * 2;
+        this.alpha = alpha || 1;
+        this.clockwise = clockwise || false;
+    }
+    ctStrokeArc.prototype.draw = function () {
+        this.superdraw();
+        this.context.beginPath();
+        this.context.strokeStyle = this.strokeStyle;
+        this.context.lineWidth = this.lineWidth;
+        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
+        this.context.stroke();
+        this.context.closePath();
+    };
+    return ctStrokeArc;
+})(ctObj);
 var ctFillArc = (function (_super) {
     __extends(ctFillArc, _super);
     function ctFillArc(fillStyle, ox, oy, r, sangle, eangle, alpha, clockwise) {
@@ -305,8 +371,8 @@ var skillArc = (function (_super) {
 })(ctObj);
 var skillNode = (function (_super) {
     __extends(skillNode, _super);
-    function skillNode(nodetext, fillStyle, x, y) {
-        _super.call(this, x || 270, y || 270, 60, 60, 1);
+    function skillNode(nodetext, fillStyle, x, y, alpha) {
+        _super.call(this, x || 270, y || 270, 60, 60, alpha || 1);
         this.fillStyle = fillStyle || '#555';
         this.nodetext = nodetext;
         this.r = 25;
