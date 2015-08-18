@@ -4,6 +4,7 @@ window.onload=function(){
 function skilltree(){
 	var ctcanvas=new ctCanvas('skilltree');
 	ctcanvas.addTrigger('click');
+	ctcanvas.addTrigger('mousemove');
 	var core=new ctFillCircle('#333',300,300,5);
 	var core1=new ctFillCircle('#444',300,300,5,0.1);
 	var core2=new ctFillCircle('#444',300,300,5,0.1);
@@ -184,7 +185,7 @@ function skillTreeBoom(ctcanvas,skillhead){
 			skillnode.to({x:ex,y:ey},500);
 		}
 
-		var nodeThreejs=new skillNode('Three.js','#f6d346',440,140,0.01);
+		var nodeThreejs=new skillNode('Threejs','#f6d346',440,140,0.01);
 		var nodetypescript=new skillNode('TypeScript','#f6d346',484,232,0.01);
 		var nodeegret=new skillNode('egret','#f6d346',580,215,0.01);
 		var nodejQuery=new skillNode('jQuery','#f6d346',477,331,0.01);
@@ -240,6 +241,47 @@ function skillTreeBoom(ctcanvas,skillhead){
 			window['groupnode2']=groupnode2;
 			window['groupline']=groupline;
 			window['groupline2']=groupline2;
+			for(var i=0;i<groupnode.length;i++){
+				bindNode(groupnode[i]);
+			}
+			for(var j=0;j<groupnode2.length;j++){
+				bindNode(groupnode2[j]);
+			}
+			window['skillhead'].on('click',function(){
+				if(isBoomed){
+					skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
+				}else{
+					skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
+				}
+			});
+
+		}
+		function bindNode(node){
+			node.on('click',function(){
+				node.r=30;
+				var headimg=new Image();
+				headimg.src='res/img/'+node.nodetext.toLowerCase()+'.png';
+				headimg.onload=function(){
+					window['skillhead'].img=headimg;
+					ctcanvas.drawCanvas();
+				};
+				nodeOnClick(node.nodetext);
+				setTimeout(function(){
+					node.r=25;
+					ctcanvas.drawCanvas();
+				},200);
+			});
+			node.on('mousemove',function(){
+				if(node.r===25){
+					node.r=30;
+					ctcanvas.drawCanvas();
+					setTimeout(function(){
+						node.r=25;
+						ctcanvas.drawCanvas();
+					},500);
+				}
+			})
+			
 		}
 
 	}
@@ -247,6 +289,14 @@ function skillTreeBoom(ctcanvas,skillhead){
 }
 
 function skillTreeReturn(ctcanvas,groupnode,groupnode2,groupline,groupline2){
+	var headimg=new Image();
+	headimg.src='res/img/skillhead.png';
+	headimg.onload=function(){
+		window['skillhead'].img=headimg;
+		ctcanvas.removeObj(window['skillhead']);
+		ctcanvas.addObj(window['skillhead']);
+		ctcanvas.drawCanvas();
+	};
 	ctcanvas.removeObjs(groupline);
 	ctcanvas.removeObjs(groupline2);
 	for(var i=0;i<groupnode.length;i++){
@@ -259,7 +309,17 @@ function skillTreeReturn(ctcanvas,groupnode,groupnode2,groupline,groupline2){
 		ctcanvas.removeObjs(groupnode);
 		ctcanvas.removeObjs(groupnode2);
 		isBoomed=false;
+		window['skillhead'].on('click',function(){
+				if(isBoomed){
+					skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
+				}else{
+					skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
+				}
+			});
 	},600);
+}
+function nodeOnClick(nodetext){
+	console.log(nodetext);
 }
 
 //skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
