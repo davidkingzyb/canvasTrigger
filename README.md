@@ -2,7 +2,7 @@
 
 **define objects in canvas and dispatch canvas event to those objects.**
 
-2015/8/3 by DKZ
+2015/8/3 by DKZ update 2015/8/18
 
 
 

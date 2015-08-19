@@ -6,22 +6,121 @@ body{
 	margin:0px;
 	padding: 0px;
 }
-#navul{
-	position: fixed;
-	color: white;
-	margin-top:-60px;
-	top:50%;
-	right: 5%;
+#homecon,#skillcon,#expcon,#contactcon{
+	position:relative;
+} 
+@media only screen and (min-width: 850px){
+	/*PC home*/
+	#navul{
+		position: fixed;
+		color: white;
+		margin-top:-60px;
+		top:50%;
+		right: 5%;
+	}
+	#navul li{
+		list-style-type: none;
+		border:2px solid white;
+		width:30px;
+		height: 30px;
+		line-height: 30px;
+		margin: 5px;
+		text-align: center;
+		font-family: helvetica , sans-serif , Arial;
+	}
+	#nav4{
+		border-radius: 15px;
+	}
 }
-#navul li{
-	list-style-type: none;
-	border:2px solid white;
-	width:30px;
-	height: 30px;
-	line-height: 30px;
-	margin: 5px;
-	text-align: center;
-	font-family: helvetica , sans-serif , Arial;
+@media only screen and (max-width: 850px){
+	/*mobile home*/
+	#navul{
+		position: fixed;
+		color: white;
+		bottom:5%;
+		right: 5%;
+		width:400px;
+	}
+	#navul li{
+		list-style-type: none;
+		border:2px solid white;
+		width:50px;
+		height: 50px;
+		line-height: 50px;
+		margin: 10px;
+		text-align: center;
+		font-family: helvetica , sans-serif , Arial;
+		float: left;
+	}
+	#nav4{
+		border-radius: 25px;
+	}
+}
+@media only screen and (min-width: 1000px){
+	/*pc skill*/
+	#skilltree{		
+		position:absolute;
+		top:50%;
+		left:35%;
+		margin-top:-300px;
+		margin-left:-350px; 
+	}
+	#skillcircle{
+		position:absolute;
+		width:250px;
+		height:250px;
+		background-color: #aaa;
+		border-radius: 125px;
+		top:50%;
+		left:45%;
+		margin-top: -350px;
+		margin-left:275px;
+	}
+	#tableA{
+		position:absolute;
+		width:250px;
+		height:180px;
+		top:50%;
+		left:45%;
+		margin-top: -70px;
+		margin-left:300px;
+	}
+	#tableB{
+		position:absolute;
+		width:250px;
+		height:180px;
+		top:50%;
+		left:45%;
+		margin-top: 120px;
+		margin-left:300px;
+	}
+}
+@media only screen and (max-width: 1000px){
+	/*mobile skill*/
+	#skilltree{		
+		position:absolute;
+		top:60%;
+		left:50%;
+		margin-top:-300px;
+		margin-left:-350px; 
+	}
+	#skillcircle{
+		position:absolute;
+		width:250px;
+		height:250px;
+		background-color: #aaa;
+		border-radius: 125px;
+		top:20%;
+		left:50%;
+		margin-top: -125px;
+		margin-left:-125px;
+	}
+	#tableA{
+		display: none;
+	}
+	#tableB{
+		display:none;
+	}
 }
 .navNow{
 	border:3px solid #82dffb !important;
@@ -32,6 +131,38 @@ body{
 	border:3px solid white;
 	font-weight: bold;
 }
-#nav4{
-	border-radius: 15px;
+#homedkz{
+	width:700px;
+	height:600px;
+	margin:-350px -300px;
+	top:57%;
+	left: 43%;
+	position:absolute;
+}
+#dkzlogo{
+	margin:0px 10px 0px 10px;
+}
+#homedkz h1{
+	font-family: helvetica , sans-serif , Arial;
+	margin:2px auto 2px auto;
+	color:white;
+	font-weight: lighter;
+	text-align: center;
+	font-size: 75px;
+
+}
+#skillcircle img{
+	margin:25px;
+
+}
+td{
+	font-family: helvetica , sans-serif , Arial;
+	color:#aaaaaa;
+	font-weight: lighter;
+	width:100px;
+	margin:0px;
+	padding:0px;
+}
+td:hover{
+	color:#82dffb;
 }
