@@ -60,6 +60,14 @@ class ctCanvas{
 			this.canvas['on'+ctEvent]=function(e){
 				that.Notify(e, ctEvent);
 			}
+		}else{
+			//reset
+			this[ctEvent + 'Observers'] = [];
+			this[ctEvent + 'Functions'] = [];
+			var that = this;
+			this.canvas['on'+ctEvent]=function(e){
+				that.Notify(e, ctEvent);
+			}
 		}
 		
 	}

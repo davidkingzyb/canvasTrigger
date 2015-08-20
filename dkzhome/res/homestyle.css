@@ -75,6 +75,7 @@ body{
 		left:45%;
 		margin-top: -350px;
 		margin-left:275px;
+		opacity: 0;
 	}
 	#tableA{
 		position:absolute;
@@ -111,15 +112,27 @@ body{
 		background-color: #aaa;
 		border-radius: 125px;
 		top:20%;
-		left:50%;
+		right:30%;
 		margin-top: -125px;
-		margin-left:-125px;
+		margin-right:-125px;
+		opacity:0;
 	}
 	#tableA{
-		display: none;
+		position:absolute;
+		width:250px;
+		height:180px;
+		top:4%;
+		left:10%;
+		
 	}
 	#tableB{
-		display:none;
+		position:absolute;
+		width:250px;
+		height:180px;
+		top:4%;
+		left:10%;
+		margin-top: 200px;
+
 	}
 }
 .navNow{
@@ -151,9 +164,18 @@ body{
 	font-size: 75px;
 
 }
-#skillcircle img{
+#skillcircle h2{
 	margin:25px;
-
+	font-family: helvetica , sans-serif , Arial;
+	color:white;
+	background-color: #222;
+	border-radius: 75px;
+	width:150px;
+	height:150px;
+	text-align: center;
+	line-height: 150px;
+	font-weight: lighter;
+	font-size: 40px;
 }
 td{
 	font-family: helvetica , sans-serif , Arial;

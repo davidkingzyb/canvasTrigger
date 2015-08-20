@@ -57,6 +57,15 @@ var ctCanvas = (function () {
                 that.Notify(e, ctEvent);
             };
         }
+        else {
+            //reset
+            this[ctEvent + 'Observers'] = [];
+            this[ctEvent + 'Functions'] = [];
+            var that = this;
+            this.canvas['on' + ctEvent] = function (e) {
+                that.Notify(e, ctEvent);
+            };
+        }
     };
     ctCanvas.prototype.Notify = function (e, ctEvent) {
         var layerX = e.layerX;

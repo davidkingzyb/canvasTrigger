@@ -60,6 +60,14 @@ class ctCanvas{
 			this.canvas['on'+ctEvent]=function(e){
 				that.Notify(e, ctEvent);
 			}
+		}else{
+			//reset
+			this[ctEvent + 'Observers'] = [];
+			this[ctEvent + 'Functions'] = [];
+			var that = this;
+			this.canvas['on'+ctEvent]=function(e){
+				that.Notify(e, ctEvent);
+			}
 		}
 		
 	}
@@ -132,7 +140,9 @@ class ctObj{
 			step--;
 			if(step<=0){
 				clearInterval(animate);
-				callback();
+				if(callback){
+					callback();
+				}
 			}
 		},this.ctcanvas,dt);	
 	}
@@ -285,6 +295,86 @@ class ctFillCircle extends ctObj{
 	}
 }
 
+class ctDrawImg extends ctObj{
+	img;
+	sx;
+	sy;
+	sw;
+	sh;
+	constructor(img,x?,y?,w?,h?,alpha?,sx?,sy?,sw?,sh?){
+		super(x,y,img.width,img.height,alpha);
+		this.img=img;
+		this.sx=sx||0;
+		this.sy=sy||0;
+		this.sw=sw||img.width;
+		this.sh=sh||img.height;
+	}
+	draw(){
+		this.superdraw();
+		this.context.drawImage(this.img,this.sx,this.sy,this.sw,this.sh,this.x,this.y,this.w,this.h);
+	}
+}
+
+class ctLine extends ctObj{
+	strokeStyle;
+	lineWidth;
+	sx;
+	sy;
+	ex;
+	ey;
+	constructor(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?){
+		super(1,1,1,1,alpha);
+		this.strokeStyle=strokeStyle;
+		this.sx=sx;
+		this.sy=sy;
+		this.ex=ex;
+		this.ey=ey;
+		this.lineWidth=lineWidth||2;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.strokeStyle=this.strokeStyle;
+		this.context.lineWidth=this.lineWidth;
+		this.context.moveTo(this.sx,this.sy);
+		this.context.lineTo(this.ex,this.ey);
+		this.context.stroke();
+		this.context.closePath();
+	}
+}
+
+class ctStrokeArc extends ctObj{
+	strokeStyle;
+	lineWidth;
+	ox;
+	oy;
+	r;
+	sangle;
+	eangle;
+	clockwise;
+	constructor(strokeStyle,lineWidth?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?){
+		super(ox-r,oy-r,2*r,2*r,alpha);
+		this.strokeStyle=strokeStyle;
+		this.lineWidth=lineWidth||2;
+		this.ox=ox||50;
+		this.oy=oy||50;
+		this.r=r||50;
+		this.sangle=sangle/180*Math.PI||0;
+		this.eangle=eangle/180*Math.PI||Math.PI*2;
+		this.alpha=alpha||1;
+		this.clockwise=clockwise||false;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.strokeStyle=this.strokeStyle;
+		this.context.lineWidth=this.lineWidth;
+		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.stroke();
+		this.context.closePath();
+	}
+}
+
 class ctFillArc extends ctObj{
 	fillStyle;
 	ox;
@@ -312,6 +402,69 @@ class ctFillArc extends ctObj{
 		this.context.lineTo(this.x+this.r,this.y+this.r);
 		this.context.closePath();
 		this.context.fill();
+	}
+}
+
+class skillArc extends ctObj{
+	fillStyle;
+	ox;
+	oy;
+	r;
+	sangle;
+	eangle;
+	clockwise;
+	constructor(fillStyle,sangle,eangle,r,clockwise?){
+		super(200,200,200,200,1);
+		this.fillStyle=fillStyle;
+		this.ox=300;
+		this.oy=300;
+		this.r=r;
+		this.sangle=sangle*Math.PI/180||0;
+		this.eangle=eangle*Math.PI/180||Math.PI*2;
+		this.clockwise=clockwise||false;
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.ox,this.oy,this.r,this.sangle,this.eangle,this.clockwise);
+		this.context.lineTo(this.ox,this.oy);
+		this.context.closePath();
+		this.context.fill();
+	}
+}
+
+class skillNode extends ctObj{
+	fillStyle;
+	nodetext;
+	r;
+	constructor(nodetext,fillStyle,x?,y?,alpha?){
+		super(x||270,y||270,60,60,alpha||1);
+		this.fillStyle=fillStyle||'#555';
+		this.nodetext=nodetext;
+		this.r=25;
+
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.x+30,this.y+30,this.r,0,Math.PI*2,true);
+		this.context.closePath();
+		this.context.fill();
+		this.context.fillStyle='#fff';
+		var xplus=0;
+		if(this.nodetext.length>9){
+			this.context.font='7px Arial';
+			xplus=4;
+		}else if(this.nodetext.length>6){
+			this.context.font='7px Arial';
+			xplus=0;
+		}
+		else{
+			this.context.font='15px Arial';
+		}
+		this.context.fillText(this.nodetext,this.x+xplus+30-this.context.measureText(this.nodetext).width/2,this.y+35,50);
 	}
 }
 

@@ -91,9 +91,9 @@ function fullPage(){
 		}
 		prevY=nowY;
 	}
-	window.onresize=function(){
-		setHomeWH();
-	}
+	// window.onresize=function(){
+	// 	setHomeWH();
+	// }
 }
 
 var isInitSkillTree=false;//skill tree state lock
@@ -105,6 +105,14 @@ function startScroll(nowCon){
 		skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
 	}
 	if(nowCon===1&&!isInitSkillTree){
+		var skillcircle=document.getElementById('skillcircle');
+		var skillcircleanimate=setInterval(function(){
+			if(skillcircle.style.opacity<1){
+				skillcircle.style.opacity=Number(skillcircle.style.opacity)+0.1;
+			}else{
+				clearInterval(skillcircleanimate);
+			}
+		},100);
 		window['skilltreectcanvas']=skilltree();
 	}
 	
@@ -157,7 +165,6 @@ var DKZLogoClass=(function(){
 	}
 
 	var d={};
-
 	d.drawWhite1=function(context,w,h){
 		context.moveTo(1*w,7*h);
 		context.lineTo(1*w,15*h);
@@ -351,7 +358,7 @@ var DKZLogoClass=(function(){
 		context.lineTo(4*w,12*h);
 		context.lineTo(3*w,11*h);
 		context.lineTo(3*w,9*h);
-		context.lineTo(4*w,8*h);		
+		context.lineTo(4*w,8*h);
 	};
 	d.drawGrey2=function(context,w,h){
 		context.moveTo(6*w,10*h);
@@ -379,7 +386,7 @@ var DKZLogoClass=(function(){
 		context.lineWidth=1;
 		context.strokeStyle='#000000';
 		context.stroke();
-		context.beginPath();	
+		context.beginPath();
 	}
 	DKZLogoClass.prototype.drawDKZ=function(mood){
 		var context=this.context;
@@ -411,8 +418,7 @@ var DKZLogoClass=(function(){
 
 		for(var j=1;j<=5;j++){
 			d['drawBlack'+j](context,w,h);
-		}		
-
+		}
 		context.closePath();
 
 		if(mood==='fill'){
@@ -546,6 +552,26 @@ var DKZLogoClass=(function(){
 
 //=================skill tree================
 
+function skillO(ctcanvas){
+	var core=new ctFillCircle('#333',300,300,75);
+	var core1=new ctFillCircle('#444',300,300,160,0.1);
+	var core2=new ctFillCircle('#444',300,300,250,0.1);
+	var arcA=new skillArc('#f6d346',-55,35,75);
+	var arcB=new skillArc('#d94c28',35,45,75);
+	var arcC=new skillArc('#ffb415',45,75,75);
+	var arcD=new skillArc('#574498',75,195,75);
+	var arcE=new skillArc('#2e2a69',195,225,75);
+	var arcF=new skillArc('#046aae',225,255,75);
+	var arcG=new skillArc('#3ad591',255,305,75);
+	var skillhead=window['skillhead'];
+	var skillOgroup=[core,core1,core2,arcA,arcB,arcC,arcD,arcE,arcF,arcG,skillhead];
+	ctcanvas.objs=[];
+	ctcanvas.addTrigger('click');
+	ctcanvas.addTrigger('mousemove');
+	ctcanvas.addObjs(skillOgroup);
+	ctcanvas.drawCanvas();
+}
+
 function skilltree(){
 	var ctcanvas=new ctCanvas('skilltree');
 	ctcanvas.addTrigger('click');
@@ -678,6 +704,9 @@ var isBoomed=false;//skill tree state lock
 function skillTreeBoom(ctcanvas,skillhead){
 	if(!isBoomed){
 		isBoomed=true;
+
+		skillO(ctcanvas);
+
 		var nodeJS=new skillNode('JS','#f6d346',395,248,0.01);
 		var nodeHTML=new skillNode('HTML','#d94c28',428,404,0.01);
 		var nodeCSS=new skillNode('CSS','#ffb415',325,370,0.01);
@@ -826,7 +855,7 @@ function skillTreeBoom(ctcanvas,skillhead){
 						ctcanvas.drawCanvas();
 					},500);
 				}
-			})
+			});
 			
 		}
 
@@ -835,37 +864,40 @@ function skillTreeBoom(ctcanvas,skillhead){
 }
 
 function skillTreeReturn(ctcanvas,groupnode,groupnode2,groupline,groupline2){
-	var headimg=new Image();
-	headimg.src='res/img/skillhead.png';
-	headimg.onload=function(){
-		window['skillhead'].img=headimg;
-		ctcanvas.removeObj(window['skillhead']);
-		ctcanvas.addObj(window['skillhead']);
-		ctcanvas.drawCanvas();
-	};
-	ctcanvas.removeObjs(groupline);
-	ctcanvas.removeObjs(groupline2);
-	for(var i=0;i<groupnode.length;i++){
-		groupnode[i].to({x:270,y:270},500);
+	if(isBoomed){
+		var headimg=new Image();
+		headimg.src='res/img/skillhead.png';
+		headimg.onload=function(){
+			window['skillhead'].img=headimg;
+			ctcanvas.removeObj(window['skillhead']);
+			ctcanvas.addObj(window['skillhead']);
+			ctcanvas.drawCanvas();
+		};
+		ctcanvas.removeObjs(groupline);
+		ctcanvas.removeObjs(groupline2);
+		for(var i=0;i<groupnode.length;i++){
+			groupnode[i].to({x:270,y:270},500);
+		}
+		for(var j=0;j<groupnode2.length;j++){
+			groupnode2[j].to({x:270,y:270},500);
+		}
+
+		setTimeout(function(){
+			ctcanvas.removeObjs(groupnode);
+			ctcanvas.removeObjs(groupnode2);
+			isBoomed=false;
+			window['skillhead'].on('click',function(){
+					if(isBoomed){
+						skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
+					}else{
+						skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
+					}
+				});
+		},600);
 	}
-	for(var j=0;j<groupnode2.length;j++){
-		groupnode2[j].to({x:270,y:270},500);
-	}
-	setTimeout(function(){
-		ctcanvas.removeObjs(groupnode);
-		ctcanvas.removeObjs(groupnode2);
-		isBoomed=false;
-		window['skillhead'].on('click',function(){
-				if(isBoomed){
-					skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
-				}else{
-					skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
-				}
-			});
-	},600);
+	
 }
 function nodeOnClick(nodetext){
-	console.log(nodetext);
 }
 
 //skillTreeReturn(window['skilltreectcanvas'],window['groupnode'],window['groupnode2'],window['groupline'],window['groupline2']);
