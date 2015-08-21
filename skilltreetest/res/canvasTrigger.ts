@@ -10,6 +10,15 @@ class ctCanvas{
 		this.context = this.canvas.getContext('2d');
 	}
 
+	reset(){
+		this.objs=[];
+		for(var i=0;i<this.triggers.length;i++){
+			this.resetTrigger(this.triggers[i]);
+		}
+		this.triggers=[];
+		this.drawCanvas();
+	}
+
 	addObj(obj){
 		this.objs.push(obj);
 		obj.ctcanvas = this;
@@ -59,9 +68,18 @@ class ctCanvas{
 			var that = this;
 			this.canvas['on'+ctEvent]=function(e){
 				that.Notify(e, ctEvent);
-			}
+			};
 		}
 		
+	}
+
+	resetTrigger(ctEvent){
+		this[ctEvent + 'Observers'] = [];
+		this[ctEvent + 'Functions'] = [];
+		var that = this;
+		this.canvas['on'+ctEvent]=function(e){
+			that.Notify(e, ctEvent);
+		};
 	}
 
 	Notify(e,ctEvent){
@@ -458,6 +476,44 @@ class skillNode extends ctObj{
 		}
 		this.context.fillText(this.nodetext,this.x+xplus+30-this.context.measureText(this.nodetext).width/2,this.y+35,50);
 	}
+}
+
+class timeNode extends ctObj{
+	timetitle;
+	fillStyle;
+	r;
+	ox;
+	oy;
+	textalpha;
+
+	constructor(timetitle,fillStyle?,ox?,oy?,r?,textalpha?,alpha?){
+		this.timetitle=timetitle;
+		this.fillStyle=fillStyle||'#000';
+		this.ox=ox||0;
+		this.oy=oy||0;
+		this.r=r||2;
+		this.textalpha=textalpha||0;
+		super(this.ox-20,this.oy-20,40,40,alpha||0.01);
+	}
+	draw(){
+		this.superdraw();
+		this.context.beginPath();
+		this.context.fillStyle='#000';
+		this.context.arc(this.x+20,this.y+20,this.r+4,0,Math.PI*2,false);
+		this.context.closePath();
+		this.context.fill();
+		this.context.beginPath();
+		this.context.fillStyle=this.fillStyle;
+		this.context.arc(this.x+20,this.y+20,this.r,0,Math.PI*2,false);
+		this.context.closePath();
+		this.context.fill();
+		this.context.globalAlpha=this.textalpha;
+		this.context.fillStyle='#fff';
+		this.context.font='15px SimHei';
+		this.context.fillText(this.timetitle,this.x+45,this.y+25);
+
+	}
+
 }
 
 

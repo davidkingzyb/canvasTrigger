@@ -565,7 +565,7 @@ function skillO(ctcanvas){
 	var arcG=new skillArc('#3ad591',255,305,75);
 	var skillhead=window['skillhead'];
 	var skillOgroup=[core,core1,core2,arcA,arcB,arcC,arcD,arcE,arcF,arcG,skillhead];
-	ctcanvas.objs=[];
+	ctcanvas.reset();
 	ctcanvas.addTrigger('click');
 	ctcanvas.addTrigger('mousemove');
 	ctcanvas.addObjs(skillOgroup);
