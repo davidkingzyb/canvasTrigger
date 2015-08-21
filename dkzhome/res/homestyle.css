@@ -31,6 +31,29 @@ body{
 	#nav4{
 		border-radius: 15px;
 	}
+	/*pc timeline*/
+	#timeline{
+		transform: rotate(-90deg);
+		transform-origin:0% 0%;
+
+		-ms-transform: rotate(-90deg);
+		-ms-transform-origin:0% 0%;
+
+		-webkit-transform: rotate(-90deg);
+		-webkit-transform-origin:0% 0%;
+
+		-moz-transform: rotate(-90deg);
+		-moz-transform-origin:0% 0%;
+
+		-o-transform: rotate(-90deg);
+		-o-transform-origin:0% 0%;
+		position:absolute;
+		left:45%;
+		margin-left: -400px;
+		top:90%;
+		background-color: grey;
+
+	}
 }
 @media only screen and (max-width: 850px){
 	/*mobile home*/
@@ -54,6 +77,14 @@ body{
 	}
 	#nav4{
 		border-radius: 25px;
+	}
+	/*mobile timeline*/
+	#timeline{
+		position:absolute;
+		left:15%;
+		top:50%;
+		margin-top:-400px;
+		margin-left: -50px;
 	}
 }
 @media only screen and (min-width: 1000px){

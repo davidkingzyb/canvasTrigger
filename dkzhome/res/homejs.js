@@ -5,8 +5,13 @@ window.onload=function(){
 	var DKZlogo=new DKZLogoClass(context,30);
 	DKZlogo.drawDKZ('stroke');
 	setTimeout(DKZlogo.animateDKZ(),2000);
-	canvas.onclick=function(){
+	canvas.onclick=function(e){
 		DKZlogo.fillrandomDKZ();
+	};
+	var aa=document.getElementById('timeline');
+	console.log(aa)
+	aa.onclick=function(e){
+		console.log(e.layerX,e.layerY)
 	};
 };
 
@@ -29,7 +34,7 @@ function setHomeWH(){
 
 	expcon.style.width='100%';
 	expcon.style.height=window.innerHeight+'px';
-	expcon.style.backgroundColor='#0f0';
+	expcon.style.backgroundColor='#aaa';
 
 	contactcon.style.width='100%';
 	contactcon.style.height=window.innerHeight+'px';
@@ -115,6 +120,12 @@ function startScroll(nowCon){
 		},100);
 		window['skilltreectcanvas']=skilltree();
 	}
+	// if(nowCon===2&&!window['timelinectcanvas']){
+	// 	window['timelinectcanvas']=timelineInit();
+	// }
+	// if(nowCon!==2&&window['timelinectcanvas']){
+	// 	timelineReturn(window['timelinectcanvas']);
+	// }
 	
 }
 
@@ -556,7 +567,7 @@ function skillO(ctcanvas){
 	var core=new ctFillCircle('#333',300,300,75);
 	var core1=new ctFillCircle('#444',300,300,160,0.1);
 	var core2=new ctFillCircle('#444',300,300,250,0.1);
-	var arcA=new skillArc('#f6d346',-55,35,75);
+	var arcA=new skillArc('#f0db4f',-55,35,75);
 	var arcB=new skillArc('#d94c28',35,45,75);
 	var arcC=new skillArc('#ffb415',45,75,75);
 	var arcD=new skillArc('#574498',75,195,75);
@@ -601,7 +612,7 @@ function skilltree(){
 			skillArcAnimate();
 		}
 	},ctcanvas);
-	var arcA=new skillArc('#f6d346',-55,35,75);
+	var arcA=new skillArc('#f0db4f',-55,35,75);
 	var arcB=new skillArc('#d94c28',35,45,85);
 	var arcC=new skillArc('#ffb415',45,75,75);
 	var arcD=new skillArc('#574498',75,195,70);
@@ -707,7 +718,7 @@ function skillTreeBoom(ctcanvas,skillhead){
 
 		skillO(ctcanvas);
 
-		var nodeJS=new skillNode('JS','#f6d346',395,248,0.01);
+		var nodeJS=new skillNode('JS','#f0db4f',395,248,0.01);
 		var nodeHTML=new skillNode('HTML','#d94c28',428,404,0.01);
 		var nodeCSS=new skillNode('CSS','#ffb415',325,370,0.01);
 		var nodeJava=new skillNode('Java','#574498',110,270,0.01);
@@ -759,10 +770,10 @@ function skillTreeBoom(ctcanvas,skillhead){
 			skillnode.to({x:ex,y:ey},500);
 		}
 
-		var nodeThreejs=new skillNode('Threejs','#f6d346',440,140,0.01);
-		var nodetypescript=new skillNode('TypeScript','#f6d346',484,232,0.01);
-		var nodeegret=new skillNode('egret','#f6d346',580,215,0.01);
-		var nodejQuery=new skillNode('jQuery','#f6d346',477,331,0.01);
+		var nodeThreejs=new skillNode('Threejs','#f0db4f',440,140,0.01);
+		var nodetypescript=new skillNode('TypeScript','#f0db4f',484,232,0.01);
+		var nodeegret=new skillNode('egret','#f0db4f',580,215,0.01);
+		var nodejQuery=new skillNode('jQuery','#f0db4f',477,331,0.01);
 		var nodeLESS=new skillNode('LESS','#ffb415',360,468,0.01);
 		var nodedjango=new skillNode('django','#574498',91,450,0.01);
 		var nodeservlet=new skillNode('Servlet','#574498',39,270,0.01);
@@ -904,3 +915,85 @@ function nodeOnClick(nodetext){
 //skillTreeBoom(window['skilltreectcanvas'],window['skillhead']);
 
 
+//================time line=======================
+function timelineInit(){
+	var timelinectcanvas=new ctCanvas('timeline');
+	timelinectcanvas.addTrigger('click');
+	timelinectcanvas.addTrigger('mousedown');
+	timelinectcanvas.addTrigger('mouseup');
+	timelinectcanvas.addTrigger('mousemove');
+	var scut=new timeNode('SCUT',"#f2a152",30,30,16);
+	var bbt=new timeNode('BBT',"#36ac4b",30,72,13);
+	var graduate=new timeNode('graduate',"#35ad98",30,196,7);
+	var dialogue=new timeNode('对白',"#fff",30,249,9);
+	var dkzhome=new timeNode('DKZ HOME',"#222",30,371,10);
+	var artistZengxin=new timeNode('artist ZengXin',"#b28850",30,405,5);
+	var cubex3=new timeNode('CUBEx3',"#48afd8",30,472,14);
+	var paypal=new timeNode('Paypal payment',"#042e78",30,513,11);
+	var meiriq=new timeNode('meiriq Game',"#fc631c",30,581,12);
+	var solardefence=new timeNode('Solar Defence',"#000",30,608,3);
+	var findspy=new timeNode('Find Spy',"#000",30,635,3);
+	var doublecolor=new timeNode('Double Color',"#000",30,663,3);
+	var egretInit=new timeNode('egretInit',"#0f0",30,691,6);
+	var magicstrata=new timeNode('Magic Strata',"#000",30,719,3);
+	var canvastrigger=new timeNode('canvasTrigger',"#f00",30,747,8);
+	var esther=new timeNode('esther',"#fc62e4",30,776,4);
+	var timeline=new ctLine('#000',30,30,30,30,4);
+	timelinectcanvas.addObj(timeline);
+	var timenodegroup=[scut,bbt,graduate,dialogue,dkzhome,artistZengxin,cubex3,paypal,meiriq,solardefence,findspy,doublecolor,egretInit,magicstrata,canvastrigger,esther];
+	timelinectcanvas.addObjs(timenodegroup);
+	var timelineanimate=animation(function(){
+		if(timeline.ey<780){
+			timeline.ey+=10;
+		}else{
+			clearInterval(timelineanimate);
+		}
+	},timelinectcanvas);
+	for(var i=0;i<timenodegroup.length;i++){
+		boomTime(timenodegroup[i]);
+		bindTimeNode(timenodegroup[i]);
+	}
+	function bindTimeNode(timenode){
+		timenode.on('mousemove',function(){
+			timenode.textalpha=1;
+			var textalphaanimate=animation(function(){
+				if(timenode.textalpha>0.1){
+					timenode.textalpha-=0.01;
+				}else{
+					clearInterval(textalphaanimate);
+				}
+			},timelinectcanvas);
+		});
+		timenode.on('mousedown',function(){
+			timenode.textalpha=1;
+			if(timenode.r>=3){
+				timenode.r-=3;
+			}
+			timelinectcanvas.drawCanvas();
+		});
+		timenode.on('mouseup',function(){
+			timenode.textalpha=0.1;
+			if(timenode.r<16){
+				timenode.r+=3;
+			}
+			timelinectcanvas.drawCanvas();
+		});
+		timenode.on('click',function(){clickTimeNode(timenode.timetitle);});
+	}
+	function boomTime(timenode){
+		var ex=timenode.x;
+		var ey=timenode.y;
+		timenode.x=10;
+		timenode.y=10;
+		timenode.alpha=1;
+		timenode.to({x:ex,y:ey},1000);
+	}
+	return timelinectcanvas;
+}
+function timelineReturn(timelinectcanvas){
+	timelinectcanvas.reset();
+	window['timelinectcanvas']=null;
+}
+function clickTimeNode(timenodetitle){
+	console.log(encodeURI(timenodetitle).replace(/%/g,'_'));
+}
