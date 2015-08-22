@@ -419,7 +419,7 @@ var skillNode = (function (_super) {
 })(ctObj);
 var timeNode = (function (_super) {
     __extends(timeNode, _super);
-    function timeNode(timetitle, fillStyle, ox, oy, r, textalpha, alpha) {
+    function timeNode(islandscape, timetitle, fillStyle, ox, oy, r, textalpha, alpha) {
         this.timetitle = timetitle;
         this.fillStyle = fillStyle || '#000';
         this.ox = ox || 0;
@@ -427,6 +427,14 @@ var timeNode = (function (_super) {
         this.r = r || 2;
         this.textalpha = textalpha || 0;
         _super.call(this, this.ox - 20, this.oy - 20, 40, 40, alpha || 0.01);
+        if (islandscape) {
+            this.plusx = -25;
+            this.plusy = 40;
+        }
+        else {
+            this.plusy = 0;
+            this.plusx = 40;
+        }
     }
     timeNode.prototype.draw = function () {
         this.superdraw();
@@ -443,7 +451,7 @@ var timeNode = (function (_super) {
         this.context.globalAlpha = this.textalpha;
         this.context.fillStyle = '#fff';
         this.context.font = '15px SimHei';
-        this.context.fillText(this.timetitle, this.x + 45, this.y + 25);
+        this.context.fillText(this.timetitle, this.x + 45 + this.plusx - this.context.measureText(this.timetitle).width / 2, this.y + 25 + this.plusy);
     };
     return timeNode;
 })(ctObj);

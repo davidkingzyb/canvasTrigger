@@ -33,26 +33,11 @@ body{
 	}
 	/*pc timeline*/
 	#timeline{
-		transform: rotate(-90deg);
-		transform-origin:0% 0%;
-
-		-ms-transform: rotate(-90deg);
-		-ms-transform-origin:0% 0%;
-
-		-webkit-transform: rotate(-90deg);
-		-webkit-transform-origin:0% 0%;
-
-		-moz-transform: rotate(-90deg);
-		-moz-transform-origin:0% 0%;
-
-		-o-transform: rotate(-90deg);
-		-o-transform-origin:0% 0%;
 		position:absolute;
 		left:45%;
 		margin-left: -400px;
-		top:90%;
-		background-color: grey;
-
+		margin-top: 300px;
+		top:50%;
 	}
 }
 @media only screen and (max-width: 850px){
