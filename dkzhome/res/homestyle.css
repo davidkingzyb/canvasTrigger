@@ -36,8 +36,8 @@ body{
 		position:absolute;
 		left:45%;
 		margin-left: -400px;
-		margin-top: 300px;
-		top:50%;
+		
+		top:5%;
 	}
 }
 @media only screen and (max-width: 850px){
@@ -89,7 +89,7 @@ body{
 		border-radius: 125px;
 		top:50%;
 		left:45%;
-		margin-top: -350px;
+		margin-top: -330px;
 		margin-left:275px;
 		opacity: 0;
 	}
