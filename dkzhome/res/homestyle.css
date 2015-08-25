@@ -36,9 +36,18 @@ body{
 		position:absolute;
 		left:45%;
 		margin-left: -400px;
-		
-		top:5%;
+		top:15%;
 	}
+	#exptext{
+	font-family: helvetica , sans-serif , Arial , SimHei;
+	width:50%;
+	margin-top:100px;
+	background-color: grey;
+	position:absolute;
+	top:15%;
+	left:20%;
+	font-size: 1.3em
+}
 }
 @media only screen and (max-width: 850px){
 	/*mobile home*/
@@ -71,6 +80,15 @@ body{
 		margin-top:-400px;
 		margin-left: -50px;
 	}
+	#exptext{
+	font-family:helvetica ,SimHei,  sans-serif , Arial ;
+	width:70%;
+	background-color: grey;
+	position:absolute;
+	top:30%;
+	left:20%;
+	font-size: 2em;
+}
 }
 @media only screen and (min-width: 1000px){
 	/*pc skill*/
@@ -203,4 +221,53 @@ td{
 }
 td:hover{
 	color:#82dffb;
+}
+#exptext h2{
+	font-family: helvetica,SimHei;
+	font-size: 2.2em;
+	margin:0;
+	padding:10px 30px 10px 30px;
+	color:white;
+	background-color: black;
+	
+	position:absolute;
+}
+#exptext p{
+	font-size: 1.1em;
+	font-family: helvetica,SimHei;
+	position:absolute;
+	color:black;
+	background-color: white;
+	right:0px;
+	top:1.6em;
+}
+#exptext h3{
+	font-family: helvetica,SimHei;
+	margin:0;
+	padding:3px 10px 3px 10px;
+	font-size: 1.5em;
+	position:absolute;
+	color:white;
+	background-color: black;
+	right:0px;
+	top:3em;
+}
+#exptext ul{
+	position:absolute;
+	font-family: helvetica,SimHei;
+	color:white;
+	top:5.5em;
+}
+#exptext li{
+	font-size: 0.8em;
+	list-style-type: none;
+	padding:2px;
+	margin:10px;
+	font-style: italic;
+}
+#expcon{
+	background-image: url(img/CUBEx3.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
