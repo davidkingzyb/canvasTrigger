@@ -251,12 +251,13 @@ td:hover{
 	background-color: black;
 	right:0px;
 	top:3em;
+	text-align: right;
 }
 #exptext ul{
 	position:absolute;
 	font-family: helvetica,SimHei;
 	color:white;
-	top:5.5em;
+	top:7em;
 }
 #exptext li{
 	font-size: 0.8em;
@@ -266,7 +267,7 @@ td:hover{
 	font-style: italic;
 }
 #expcon{
-	background-image: url(img/CUBEx3.jpg);
+	/*background-image: url(img/CUBEx3.jpg);*/
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
