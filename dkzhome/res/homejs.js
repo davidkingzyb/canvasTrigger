@@ -29,7 +29,7 @@ function setHomeWH(){
 
 	expcon.style.width='100%';
 	expcon.style.height=window.innerHeight+'px';
-	expcon.style.backgroundImage='url(res/img/CUBEx3.jpg';
+	expcon.style.backgroundImage='url(res/img/CUBEx3.jpg)';
 
 	contactcon.style.width='100%';
 	contactcon.style.height=window.innerHeight+'px';

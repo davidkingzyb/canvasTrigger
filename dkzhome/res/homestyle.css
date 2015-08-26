@@ -272,3 +272,122 @@ td:hover{
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+#contactpanel{
+	position:absolute;
+	width:60%;
+	height:70%;
+	left:15%;
+	top:15%;
+	font-family: helvetica,SimHei;
+	color:white;
+}
+@media only screen and (max-width: 850px){
+	/*mobile contact*/
+	#contactpanel{
+		left:20%;
+		font-size: 1.5em;
+	}
+}
+#contactpanel a{
+	font-style: italic;
+	font-size: 2em;
+	position:absolute;
+	bottom:5%;
+	right:3%;
+	padding:10px;
+}
+#contact{
+	position:absolute;
+	margin-top:190px;
+	top:10%;
+	width:100%;
+	text-align: center;
+}
+#contact h2{
+	font-size: 2em;
+	margin:5px;
+}
+#headcube{
+	position:absolute;
+	top:10%;
+	left:50%;
+	margin-left: -75px;
+}
+#headcube img{
+	position:absolute;
+}
+#paneT{
+	background-color: #3ab20b;
+	position: absolute;
+	top:120px;
+	left:77px;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
+	transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);;
+	
+}
+.cube{
+	position:absolute;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+	width: 60px;
+	height:60px;
+}
+.face {
+	position: absolute;
+	width:100%; 
+	height:100%;
+}
+
+.cubeS {
+	float: left;
+	position: relative;
+	width: 30px; 
+	height: 30px;
+	margin: 15px;
+	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
+}
+.FS3{
+	-webkit-transform-origin:bottom;
+	-webkit-transform:rotateX(-90deg);
+	transform-origin:bottom;
+	transform:rotateX(-90deg);	
+	height:90px;
+	top:-60px;
+	background-position: 150px 0px;
+}
+.BS3{
+	-webkit-transform-origin:top;
+	-webkit-transform:rotateX(90deg);
+	transform-origin:top;
+	transform:rotateX(90deg);
+	height:90px;	
+	background-position: 120px 0px;
+}
+.RS3{
+	-webkit-transform-origin:right;
+	-webkit-transform:rotateY(90deg);
+	transform-origin:right;
+	transform:rotateY(90deg);	
+	left:-60px;
+	width: 90px;
+	background-position: 90px 60px;
+}
+.LS3{
+	-webkit-transform-origin:left;
+	-webkit-transform:rotateY(-90deg);
+	transform-origin:left;
+	transform:rotateY(-90deg);
+	width: 90px;
+	background-position: 90px 90px;
+}
+.TS3{
+	-webkit-transform:translateZ(90px);
+	transform:translateZ(90px);
+	background-position: 180px 0px;
+}
+.V5{
+	background-image: url(img/V5.jpg);
+}
