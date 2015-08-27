@@ -8,6 +8,9 @@ window.onload=function(){
 	canvas.onclick=function(e){
 		DKZlogo.fillrandomDKZ();
 	};
+	if(navigator.userAgent.toLowerCase().indexOf('mobile')===-1){
+		rotateCube();
+	}
 };
 
 //===============full page===========
@@ -1005,7 +1008,7 @@ function timelineReturn(timelinectcanvas){
 	timelinectcanvas.reset();
 	window['timelinectcanvas']=null;
 }
-var timedata=[{"id":"SCUT","data":{"title":"华南理工大学","info":"经济与贸易学院 电子商务 管理学学士","date":"2011.9-2015.7","list":["2013年华南理工大学经济与贸易学院优秀共青团干部","2014年华南理工大学优秀学生干部"]}},{"id":"BBT","data":{"title":"百步梯","info":"百步梯学生创新中心 美工部 部长","date":"2011.9-2014.4","list":["百步梯组织形象 VI设计 海报设计","第八届雕刻时光电影节光迹涂鸦活动海报","2013年爱上女主播播音主持大赛舞台布置"]}},{"id":"graduate","data":{"title":"毕业季","info":"百步梯毕业季活动官方网站设计","date":"2013.4","list":["http://bbtgraduate.sinaapp.com","整页滚动网站 开始接触前端","jQuery html css"]}},{"id":"_E5_AF_B9_E7_99_BD","data":{"title":"对白","info":"台词查询网站","date":"2012.6-2014.2","list":["http://dialogue.sinaapp.com","台词分享查询网站 使用爬虫收集字幕文件并解析添加到数据库","python django mysql sae sqlite"]}},{"id":"DKZ_20HOME","data":{"title":"DKZ's HOME","info":"我的个人主页","date":"2014.6-2014.7 update 2015.8-","list":["http://davidkingzyb.github.io","我的个人主页 了解我更多 Hello World!","DKZ's BLOG 分享技术 基于markdown实现","python JavaSctipt TypeScript canvas markdown"]}},{"id":"artist_20ZengXin","data":{"title":"油画家曾新","info":"父亲的油画展示页面","date":"2014.7-2014.8","list":["http://zengxin.sinaapp.com","给爸爸做的一个小站 展示爸爸的作品","个性化定制可复用的UI组件","django jquery svg sae"]}},{"id":"CUBEx3","data":{"title":"CUBEx3","info":"独立游戏","date":"2014.11-","list":["http://cubex3.sinaapp.com","独立完成游戏的构思 角色设计","功能设计 交互设计 UI及美工制作","前端及后台的代码实现","python django MySQL jquery CSS-transform"]}},{"id":"Paypal_20payment","data":{"title":"PayPal Pay","info":"基于PayPal实现的支付系统","date":"2014.12-2015.5","list":["http://cubex3.sinaapp.com/paypal","支付流程设计 制定解决方案 代码实现","将其应用于游戏CubeX3的虚拟道具支付功能","python paypal-python-SDK"]}},{"id":"meiriq_20Game","data":{"title":"meiriq Game","info":"每日Q游戏 前端开发工程师","date":"2015.4-","list":["使用egret引擎开发HTML5小游戏","艾斯特的记忆 魔法师学徒 找出卧底","双色消除物语 等多款游戏主程"]}},{"id":"Solar_20Defence","data":{"title":"太阳光子防御战","info":"egret敏捷类游戏","date":"2015.4","list":[]}},{"id":"Find_20Spy","data":{"title":"找出卧底","info":"egret跑酷类游戏","date":"2015.5","list":[]}},{"id":"Double_20Color","data":{"title":"双色消除物语","info":"egret益智类游戏","date":"2015.5","list":[]}},{"id":"egretInit","data":{"title":"egretInit","info":"快速构建egret项目","date":"2015.6-","list":["封装常用的egret方法与类","优化工作流 快速定义资源","提供屏幕适配解决方案","优化egret帧动画","debug工具 实现可视化编辑"]}},{"id":"Magic_20Strata","data":{"title":"魔法师学徒","info":"egret益智游戏","date":"2015.6","list":[]}},{"id":"canvasTrigger","data":{"title":"canvasTrigger","info":"canvas工具库","date":"2015.8-","list":["用于构建canvas图表与组件","在canvas中定义对象","向这些对象派发浏览器事件","实现基于时间的帧动画和缓动动画"]}},{"id":"esther","data":{"title":"艾斯特的记忆","info":"egret闯关游戏","date":"2015.7-2015.8","list":[]}}];
+var timedata=[{"id":"SCUT","data":{"title":"华南理工大学","info":"经济与贸易学院 电子商务 管理学学士","date":"2011.9-2015.7","list":["2013年华南理工大学经济与贸易学院优秀共青团干部","2014年华南理工大学优秀学生干部"]}},{"id":"BBT","data":{"title":"百步梯","info":"百步梯学生创新中心 美工部 部长","date":"2011.9-2014.4","list":["百步梯组织形象 VI设计 海报设计","第八届雕刻时光电影节光迹涂鸦活动海报","2013年爱上女主播播音主持大赛舞台布置"]}},{"id":"graduate","data":{"title":"毕业季","info":"百步梯毕业季活动官方网站设计","date":"2013.4","list":["http://bbtgraduate.sinaapp.com","整页滚动网站 开始接触前端","jQuery html css"]}},{"id":"_E5_AF_B9_E7_99_BD","data":{"title":"对白","info":"台词查询网站","date":"2012.6-2014.2","list":["http://dialogue.sinaapp.com","台词分享查询网站 使用爬虫收集字幕文件并解析添加到数据库","python django mysql sae sqlite"]}},{"id":"DKZ_20HOME","data":{"title":"DKZ's HOME","info":"我的个人主页","date":"2014.6-2014.7 update 2015.8-","list":["http://davidkingzyb.github.io","我的个人主页 了解我更多 Hello World!","DKZ's BLOG 分享技术 基于markdown实现","python JavaSctipt TypeScript canvas markdown"]}},{"id":"artist_20ZengXin","data":{"title":"油画家曾新","info":"父亲的油画展示页面","date":"2014.7-2014.8","list":["http://zengxin.sinaapp.com","给爸爸做的一个小站 展示爸爸的作品","个性化定制可复用的UI组件","django jquery svg sae"]}},{"id":"CUBEx3","data":{"title":"CUBEx3","info":"独立游戏","date":"2014.11-","list":["http://cubex3.sinaapp.com","独立完成游戏的构思 角色设计","功能设计 交互设计 UI及美工制作","前端及后台的代码实现","python django MySQL jquery CSS-transform"]}},{"id":"Paypal_20payment","data":{"title":"PayPal Pay","info":"基于PayPal实现的支付系统","date":"2014.12-2015.5","list":["http://cubex3.sinaapp.com/paypal","支付流程设计 制定解决方案 代码实现","将其应用于游戏CubeX3的虚拟道具支付功能","python paypal-python-SDK"]}},{"id":"meiriq_20Game","data":{"title":"meiriq Game","info":"每日Q游戏 前端开发工程师","date":"2015.4-","list":["使用egret引擎开发HTML5小游戏","艾斯特的记忆 魔法师学徒 找出卧底","双色消除物语 等多款游戏主程"]}},{"id":"Solar_20Defence","data":{"title":"太阳光子防御战","info":"egret敏捷类游戏","date":"2015.4","list":["http://gameslibrary.meiriq.com:8080/home/g/600?cdn=use"]}},{"id":"Find_20Spy","data":{"title":"找出卧底","info":"egret跑酷类游戏","date":"2015.5","list":["http://gameslibrary.meiriq.com:8080/home/g/604?cdn=use"]}},{"id":"Double_20Color","data":{"title":"双色消除物语","info":"egret益智类游戏","date":"2015.5","list":["http://gameslibrary.meiriq.com:8080/home/g/621?cdn=use"]}},{"id":"egretInit","data":{"title":"egretInit","info":"快速构建egret项目","date":"2015.6-","list":["https://github.com/davidkingzyb/egretInit","封装常用的egret方法与类","优化工作流 快速定义资源","提供屏幕适配解决方案","优化egret帧动画","debug工具 实现可视化编辑"]}},{"id":"Magic_20Strata","data":{"title":"魔法师学徒","info":"egret益智游戏","date":"2015.6","list":["http://gameslibrary.meiriq.com:8080/home/g/626?cdn=use"]}},{"id":"canvasTrigger","data":{"title":"canvasTrigger","info":"canvas工具库","date":"2015.8-","list":["https://github.com/davidkingzyb/canvasTrigger","用于构建canvas图表与组件","在canvas中定义对象","向这些对象派发浏览器事件","实现基于时间的帧动画和缓动动画"]}},{"id":"esther","data":{"title":"艾斯特的记忆","info":"egret闯关游戏","date":"2015.7-2015.8","list":[]}}];
 function clickTimeNode(timenodetitle){
 	var data;
 	for(var i=0;i<timedata.length;i++){
@@ -1049,4 +1052,26 @@ function renderExpCon(data,id){
 		
 	},30);
 	
+}
+
+function rotateCube(){
+	var contactcon=document.getElementById('contactcon');
+	var cube=document.getElementById('cube');
+	contactcon.onmousemove=function(e){
+		var a=Math.atan((e.clientY-window.innerHeight/2)/(e.clientX-window.innerWidth/2))*180/Math.PI;
+		if(e.clientY-window.innerHeight/2>0&&e.clientX-window.innerWidth/2<0){
+			cube.style.transform='rotateZ('+a/2+'deg)';
+			cube.style.webkitTransform='rotateZ('+a/2+'deg)';
+		}else if(e.clientY-window.innerHeight/2>0&&e.clientX-window.innerWidth/2>0){
+			cube.style.transform='rotateZ('+(a/2-90)+'deg)';
+			cube.style.webkitTransform='rotateZ('+(a/2-90)+'deg)';
+		}else if(e.clientY-window.innerHeight/2<0&&e.clientX-window.innerWidth/2>0){
+			cube.style.transform='rotateZ('+(a/2-180)+'deg)';
+			cube.style.webkitTransform='rotateZ('+(a/2-180)+'deg)';
+		}else if(e.clientY-window.innerHeight/2<0&&e.clientX-window.innerWidth/2<0){
+			cube.style.transform='rotateZ('+(a/2+90)+'deg)';
+			cube.style.webkitTransform='rotateZ('+(a/2+90)+'deg)';
+		}
+		
+	};
 }

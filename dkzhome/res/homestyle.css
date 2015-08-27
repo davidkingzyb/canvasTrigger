@@ -5,6 +5,7 @@ a{
 body{
 	margin:0px;
 	padding: 0px;
+	background-color: #222;
 }
 #homecon,#skillcon,#expcon,#contactcon{
 	position:relative;
@@ -276,19 +277,18 @@ td:hover{
 	position:absolute;
 	width:60%;
 	height:70%;
-	left:15%;
+	left:20%;
 	top:15%;
 	font-family: helvetica,SimHei;
 	color:white;
 }
 @media only screen and (max-width: 850px){
 	/*mobile contact*/
-	#contactpanel{
-		left:20%;
+	#contactpanel{	
 		font-size: 1.5em;
 	}
 }
-#contactpanel a{
+#contactpanelA{
 	font-style: italic;
 	font-size: 2em;
 	position:absolute;
@@ -324,10 +324,10 @@ td:hover{
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
 	-webkit-transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
-	transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);;
+	transform: rotateX(55deg) rotateY(0deg) rotateZ(45deg);
 	
 }
-.cube{
+#cube{
 	position:absolute;
 	transform-style: preserve-3d;
 	-webkit-transform-style: preserve-3d;
@@ -390,4 +390,28 @@ td:hover{
 }
 .V5{
 	background-image: url(img/V5.jpg);
+}
+#contactcircle{
+		position:absolute;
+		width:250px;
+		height:250px;
+		background-color: #666;
+		border-radius: 125px;
+		top:70%;
+		left:15%;
+		margin-top: -125px;
+		margin-left:-125px;
+	}
+#contactcircle h2{
+	margin-left:75px;
+	font-family: helvetica , sans-serif , Arial;
+	color:black;
+	background-color: #ddd;
+	border-radius: 75px;
+	width:150px;
+	height:150px;
+	text-align: center;
+	line-height: 150px;
+	font-weight: lighter;
+	font-size: 40px;
 }
