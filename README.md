@@ -24,13 +24,11 @@ a.on('click',function(){
 
 ##canvasTrigger API
 
-###ctCanvas(id)
-
-***
+####ctCanvas(id)
 
 create a ctCanvas object.
 
-id:string <canvas>id
+* id:string <canvas>id
 
 ```
 var ctcanvas=new ctCanvas('canvas');
@@ -42,47 +40,77 @@ canvas object get by id.
 
 ##### context:any
 
-canvas context .
+canvas context 
 
-##### objs:array<string>
+##### objs:string[]
 
 ctObj objects array store ctObjs which add in this ctcanvas.
 
-##### triggers:array<string>
+##### triggers:string[]
 
 event type array store ctEvent string.
 
-##### addTrigger(ctEvent)
+##### reset()
 
-add event type to ctCanvas.
+reset ctCanvas clear canvas
 
-ctEvent:string event type.
-
-```
-ctcanvas.addTrigger('click');
-```
+* void
 
 ##### addObj(obj)
 
 add ctObj to ctCanvas and draw it.
 
-obj:ctObj
+* obj:ctObj
+
+* void
 
 ```
 ctcanvas.addObj(a);
+```
+
+##### addObjs(objarr)
+
+add ctObjs to ctCanvas and draw it.
+
+* objarr:ctObj[]
+
+* void
+
+```
+ctcanvas.addObjs([a,b]);
 ```
 
 ##### removeObj(obj)
 
 remove ctObj from ctCanvas remove all event of this ctObj and draw canvas again.
 
+* obj:ctObj
+
+* void
+
 ```
 ctcanvas.removeObj(a);
+```
+
+##### removeObjs(objarr)
+
+remove ctObjs from ctCanvas remove all event of those ctObjs and draw canvas again.
+
+* objarr:ctObj[]
+
+* void
+
+```
+ctcanvas.removeObjs([a,b]);
 ```
 
 ##### offObj(obj)
 
 remove all event of this ctObj.
+
+* obj:ctObj
+
+* void
 
 ```
 ctcanvas.offObj(obj);
@@ -92,35 +120,65 @@ ctcanvas.offObj(obj);
 
 draw all ctObj objects in canvas.
 
+* void
+
 ```
 ctcanvas.drawCanvas();
 ```
+
+##### addTrigger(ctEvent)
+
+add event type to ctCanvas.
+
+* ctEvent:string event type.
+
+* void
+
+```
+ctcanvas.addTrigger('click');
+```
+
+##### resetTrigger(ctEvent)
+
+reset Trigger
+
+* ctEvent:string event type
+
+* void
 
 ##### Notify(e,ctEvent)
 
 call observer's function
 
-e:event 
+* e:event 
 
-ctEvent:string event type.
+* ctEvent:string event type.
+
+* void
 
 ##### registerObserver(ctEvent,func,obj)
 
 register a observer 
 
-ctEvent:string event type.
+* ctEvent:string event type.
 
-func:any this function will be execute after the event
+* func:any this function will be execute after the event
 
-obj:ctObj 
+* obj:ctObj 
+
+* void
 
 ##### removeObserver(ctEvent,obj)
 
 remove observer from ctobj.
 
-###ctObj(x?,y?,w?,h?)
+* ctEvent:string event type
 
-***
+* obj:ctObj
+
+* void
+
+####ctObj(x?,y?,w?,h?,alpha?)
 
 super class of all object
 
@@ -156,9 +214,11 @@ alpha of this default=1
 
 add a event listener of this
 
-ctevent:string 
+* ctevent:string 
 
-func:function 
+* func:function 
+
+* void
 
 ```
 a.on('click',function(){
@@ -170,7 +230,9 @@ a.on('click',function(){
 
 remove the event listener of this
 
-ctevent:string
+* ctevent:string
+
+* void
 
 ```
 a.off('click');
@@ -180,15 +242,19 @@ a.off('click');
 
 set globalAlpha
 
+* void
+
 ##### to(args,time,callback)
 
 a linear tween animation
 
-args:object ctObj's attribute
+* args:object ctObj's attribute
 
-time:number time during animation 
+* time:number time during animation 
 
-callback:function the callback function
+* callback:function the callback function
+
+* return:ctObj return this
 
 ```
 obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){
@@ -196,17 +262,17 @@ obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){
 });
 ```
 
-###animation(update,context,dt?fps?)
-
-***
+####animation(update,context,dt?,fps?)
 
 time base animation function
 
-update:function animation function
+* update:function animation function
 
-dt:number step time
+* dt:number interval time
 
-fps:number
+* fps:number
+
+* void
 
 ```
 var animate=animation(function(){
@@ -215,25 +281,21 @@ var animate=animation(function(){
 },ctcanvas,20,50);
 ```
 
-###showPosition(target,ctcanvas)
-
-***
+####showPosition(target,ctcanvas)
 
 show ctObj position and make it dragable
 
-target:ctObj 
+* target:ctObj target object
 
-target object
+* ctcanvas:ctCanvas this ctcanvas
 
-ctcanvas:ctCanvas 
+* void
 
 ```
 showPosition(a,ctcanvas);
 ```
 
-###ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
-
-***
+####ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
 
 extends ctObj 
 
@@ -252,9 +314,9 @@ context fillStyle default='#000'
 
 draw this object
 
-###ctStrokeRect(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
+* void
 
-***
+####ctStrokeRect(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
 
 stroke rectangle object
 
@@ -274,9 +336,9 @@ context lineWidth default=1
 
 draw this object
 
-###ctFillText(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
+* void
 
-***
+####ctFillText(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
 
 extends ctObj
 
@@ -303,9 +365,9 @@ fill color default='#000'
 
 draw this obj
 
-###ctDrawImg(img,x?,y?,w?,h?,alpha?,sx?,sy?,sw?,sh?)
+* void
 
-***
+####ctDrawImg(img,x?,y?,w?,h?,alpha?,sx?,sy?,sw?,sh?)
 
 extends ctObj
 
@@ -332,9 +394,9 @@ x y coordination and width height of the sourse image.default = 0,0,img.width,im
 
 draw image
 
-###ctLine(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?)
+* void
 
-***
+####ctLine(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?)
 
 extends ctObj
 
@@ -360,9 +422,9 @@ start x,start y,end x,end y coodination
 
 draw line
 
-###ctFillCircle(fillStyle?,ox?,oy?,r?,alpha?)
+* void
 
-***
+####ctFillCircle(fillStyle?,ox?,oy?,r?,alpha?)
 
 extends ctObj
 
@@ -396,9 +458,9 @@ default=1
 
 draw circle
 
-###ctFillArc(fillStyle?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
+* void
 
-***
+####ctFillArc(fillStyle?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
 
 extends ctObj
 
@@ -442,9 +504,9 @@ default=true
 
 draw this object
 
-###ctStrokeArc(strokeStyle,lineWidth?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
+* void
 
-***
+####ctStrokeArc(strokeStyle,lineWidth?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?)
 
 extends ctObj
 
@@ -469,6 +531,8 @@ same like ctFillArc
 ##### draw()
 
 draw ctStrokeArc
+
+* void
 
 
 

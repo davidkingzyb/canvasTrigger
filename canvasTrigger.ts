@@ -152,9 +152,10 @@ class ctObj{
 				clearInterval(animate);
 				if(callback){
 					callback();
+					return this;//TODO test
 				}
 			}
-		},this.ctcanvas,dt);	
+		},this.ctcanvas,dt);
 	}
 }
 
@@ -415,106 +416,6 @@ class ctFillArc extends ctObj{
 	}
 }
 
-class skillArc extends ctObj{
-	fillStyle;
-	ox;
-	oy;
-	r;
-	sangle;
-	eangle;
-	clockwise;
-	constructor(fillStyle,sangle,eangle,r,clockwise?){
-		super(200,200,200,200,1);
-		this.fillStyle=fillStyle;
-		this.ox=300;
-		this.oy=300;
-		this.r=r;
-		this.sangle=sangle*Math.PI/180||0;
-		this.eangle=eangle*Math.PI/180||Math.PI*2;
-		this.clockwise=clockwise||false;
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.ox,this.oy,this.r,this.sangle,this.eangle,this.clockwise);
-		this.context.lineTo(this.ox,this.oy);
-		this.context.closePath();
-		this.context.fill();
-	}
-}
-
-class skillNode extends ctObj{
-	fillStyle;
-	nodetext;
-	r;
-	constructor(nodetext,fillStyle,x?,y?,alpha?){
-		super(x||270,y||270,60,60,alpha||1);
-		this.fillStyle=fillStyle||'#555';
-		this.nodetext=nodetext;
-		this.r=25;
-
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.x+30,this.y+30,this.r,0,Math.PI*2,true);
-		this.context.closePath();
-		this.context.fill();
-		this.context.fillStyle='#fff';
-		var xplus=0;
-		if(this.nodetext.length>9){
-			this.context.font='7px Arial';
-			xplus=4;
-		}else if(this.nodetext.length>6){
-			this.context.font='7px Arial';
-			xplus=0;
-		}
-		else{
-			this.context.font='15px Arial';
-		}
-		this.context.fillText(this.nodetext,this.x+xplus+30-this.context.measureText(this.nodetext).width/2,this.y+35,50);
-	}
-}
-
-class timeNode extends ctObj{
-	timetitle;
-	fillStyle;
-	r;
-	ox;
-	oy;
-	textalpha;
-
-	constructor(timetitle,fillStyle?,ox?,oy?,r?,textalpha?,alpha?){
-		this.timetitle=timetitle;
-		this.fillStyle=fillStyle||'#000';
-		this.ox=ox||0;
-		this.oy=oy||0;
-		this.r=r||2;
-		this.textalpha=textalpha||0;
-		super(this.ox-20,this.oy-20,40,40,alpha||0.01);
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.fillStyle='#000';
-		this.context.arc(this.x+20,this.y+20,this.r+4,0,Math.PI*2,false);
-		this.context.closePath();
-		this.context.fill();
-		this.context.beginPath();
-		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.x+20,this.y+20,this.r,0,Math.PI*2,false);
-		this.context.closePath();
-		this.context.fill();
-		this.context.globalAlpha=this.textalpha;
-		this.context.fillStyle='#fff';
-		this.context.font='15px SimHei';
-		this.context.fillText(this.timetitle,this.x+45,this.y+25);
-
-	}
-
-}
 
 
 
