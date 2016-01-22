@@ -586,6 +586,12 @@ stop main loop function
 
 ####animationsCtrl()
 
+animation controler class
+
+```
+    var anmt=new animationCtrl();
+```
+
 #####start()
 
 start animation loop and initialize 
