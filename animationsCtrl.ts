@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  2016/01/22 by DKZ https://davidkingzyb.github.io
 //  github: https://github.com/davidkingzyb/canvasTrigger
+//  guide: http://davidkingzyb.github.io/blogmd/6.html
 //  animation controler to control frame animation 
 //  base on observe pattern and time-base animation register animation to animationCtrl 
 

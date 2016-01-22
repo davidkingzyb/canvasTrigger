@@ -6,6 +6,8 @@
 
 
 
+[guide](http://davidkingzyb.github.io/blogmd/6.html)
+
 ###List
 
 - **canvasTrigger** define objects in canvas and dispatch canvas event to those objects.
