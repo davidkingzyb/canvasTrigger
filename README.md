@@ -2,27 +2,53 @@
 
 **define objects in canvas and dispatch canvas event to those objects.**
 
-2015/8/3 by DKZ update 2015/8/18
+2015/8/3 by DKZ update 2016/1/22
 
 
 
-[github](https://github.com/davidkingzyb/canvasTrigger)
+###List
 
-##quick example
+- **canvasTrigger** define objects in canvas and dispatch canvas event to those objects.
+
+- **animationsCtrl** nimation controler to control frame animation
+
+###quick example
+
+####canvasTigger
 
 ```
-var ctcanvas=new ctCanvas('canvas');
-ctcanvas.addTrigger('click');
+    var ctcanvas=new ctCanvas('canvas');
+    ctcanvas.addTrigger('click');
 
-var a=new ctFillRect(100,100,200,200,'#f00');
-ctcanvas.addObj(a);
+    var a=new ctFillRect(100,100,200,200,'#f00');
+    ctcanvas.addObj(a);
 
-a.on('click',function(){
-	console.log('a click');
-});
+    a.on('click',function(){
+    	console.log('a click');
+    });
 ```
 
-##canvasTrigger API
+####animationsCtrl
+
+```
+    aC_startMainLoop();
+    var i=0;
+    var anmt=new animationCtrl();
+    anmt.start();
+    anmt.on(function(){
+        i++;
+        console.log(i);
+        if(i>2000){
+            anmt.stop();
+            aC_stopMainLoop();
+        }
+    },this);
+
+```
+
+##API
+
+###canvasTrigger
 
 ####ctCanvas(id)
 
@@ -262,7 +288,7 @@ obj.to({x:100,y:100,W:100,h:100,alpha:100},1000,function(){
 });
 ```
 
-####animation(update,context,dt?,fps?)
+####cT_animation(update,context,dt?,fps?)
 
 time base animation function
 
@@ -275,15 +301,15 @@ time base animation function
 * void
 
 ```
-var animate=animation(function(){
+var animate=cT_animation(function(){
 	obj.x++;
 	if(obj.x>400){clearInterval(animate)};
 },ctcanvas,20,50);
 ```
 
-####showPosition(target,ctcanvas)
+####cT_showPosition(target,ctcanvas)
 
-show ctObj position and make it dragable
+show ctObj's position and make it dragable
 
 * target:ctObj target object
 
@@ -292,7 +318,21 @@ show ctObj position and make it dragable
 * void
 
 ```
-showPosition(a,ctcanvas);
+cT_showPosition(a,ctcanvas);
+```
+
+####cT_showPositions(targetArr,ctcanvas)
+
+show ctObjs's position and make it dragable
+
+* targetArr:ctObj[] target object array
+
+* ctcanvas:ctCanvas this ctcanvas
+
+* void
+
+```
+cT_showPositions([a,b],ctcanvas);
 ```
 
 ####ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
@@ -533,6 +573,49 @@ same like ctFillArc
 draw ctStrokeArc
 
 * void
+
+###animationsCtrl
+
+####aC_startMainLoop()
+
+start main loop function
+
+####aC_stopMainLoop()
+
+stop main loop function
+
+####animationsCtrl()
+
+#####start()
+
+start animation loop and initialize 
+
+#####stop()
+
+stop animation and reset acc
+
+#####pause()
+
+pause animation
+
+#####resume()
+
+resume animation
+
+#####on(func,context)
+
+regist animation loop function
+
+- func:function animation function
+- context: this obj
+
+#####off(func,context)
+
+unregist animation loop function
+
+- func:function animation function
+- context: this obj
+
 
 
 

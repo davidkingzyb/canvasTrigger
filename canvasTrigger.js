@@ -1,20 +1,30 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                      ________                                           
-//                                                     |__    __|        __                                
-//   ______    ____    ______   __  __   ____    ______   |  |    __  __|__|  _____   _____   _____  __  __
-//  |   ___|  /    \  |      \ |  | | | /    \  /  ___/   |  |   |  |/_/|  | / _   | / _   | /  _  \|  |/_/
-//  |  |____ /  △  \_|   _   |\   \/ //  △  \_\___  \   |  |   |   |  |  |_\___  |_\___  |/  ____/|   |  
-//  |_______|\_______/|__| |__| \____/ \_______/\_____/   |__|   |___|  |__|\______|\______|\______/|___|  
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  2015/11/11 by DKZ https://davidkingzyb.github.io
-
-//=============core=================
-var __extends = this.__extends || function (d, b) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                      ________                                             //  
+//                                                     |__    __|        __                                  //  
+//   ______    ____    ______   __  __   ____    ______   |  |    __  __|__|  _____   _____   _____  __  __  //  
+//  |   ___|  /    \  |      \ |  | | | /    \  /  ___/   |  |   |  |/_/|  | / _   | / _   | /  _  \|  |/_/  //  
+//  |  |____ /  /   \_|   _   |\   \/ //  /   \_\___  \   |  |   |   |  |  |_\___  |_\___  |/  ____/|   |    //  
+//  |_______|\_______/|__| |__| \____/ \_______/\_____/   |__|   |___|  |__|\______|\______|\______/|___|    //  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  2016/01/22 by DKZ https://davidkingzyb.github.io
+//  github: https://github.com/davidkingzyb/canvasTrigger
+//  define objects in canvas and dispatch canvas event to those objects.
+//  base on observe pattern 
+//  debug and simple animation
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+// quick example
+// var ctcanvas=new ctCanvas('canvas');
+// ctcanvas.addTrigger('click');
+// var a=new ctFillRect(100,100,200,200,'#f00');
+// ctcanvas.addObj(a);
+// a.on('click',function(){
+// 	console.log('a click');
+// });
+//=============core=================
 var ctCanvas = (function () {
     function ctCanvas(id) {
         this.objs = [];
@@ -134,7 +144,7 @@ var ctObj = (function () {
         var vh = args.h ? (args.h - this.h) / time * dt : 0;
         var valpha = args.alpha ? (args.alpha - this.alpha) / time * dt : 0;
         var that = this;
-        var animate = animation(function () {
+        var animate = cT_animation(function () {
             that.x += vx;
             that.y += vy;
             that.w += vw;
@@ -153,7 +163,7 @@ var ctObj = (function () {
 })();
 //==========animation=============
 //time base animation
-function animation(update, context, dt, fps) {
+function cT_animation(update, context, dt, fps) {
     var current = new Date().getTime();
     var acc = 0;
     var dt = dt || 20;
@@ -173,7 +183,7 @@ function animation(update, context, dt, fps) {
     return setInterval(loop, time);
 }
 //============debug==============
-function showPosition(target, ctcanvas) {
+function cT_showPosition(target, ctcanvas) {
     ctcanvas.addTrigger('mousemove');
     ctcanvas.addTrigger('mousedown');
     ctcanvas.addTrigger('mouseup');
@@ -211,9 +221,9 @@ function showPosition(target, ctcanvas) {
         console.log(target.x, target.y, target.w, target.h);
     });
 }
-function showPositions(targetarr, ctcanvas) {
+function cT_showPositions(targetarr, ctcanvas) {
     for (var i = 0; i < targetarr.length; i++) {
-        showPosition(targetarr[i], ctcanvas);
+        cT_showPosition(targetarr[i], ctcanvas);
     }
 }
 //===========obj=================
@@ -371,89 +381,4 @@ var ctFillArc = (function (_super) {
         this.context.fill();
     };
     return ctFillArc;
-})(ctObj);
-var skillArc = (function (_super) {
-    __extends(skillArc, _super);
-    function skillArc(fillStyle, sangle, eangle, r, clockwise) {
-        _super.call(this, 200, 200, 200, 200, 1);
-        this.fillStyle = fillStyle;
-        this.ox = 300;
-        this.oy = 300;
-        this.r = r;
-        this.sangle = sangle * Math.PI / 180 || 0;
-        this.eangle = eangle * Math.PI / 180 || Math.PI * 2;
-        this.clockwise = clockwise || false;
-    }
-    skillArc.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.fillStyle = this.fillStyle;
-        this.context.arc(this.ox, this.oy, this.r, this.sangle, this.eangle, this.clockwise);
-        this.context.lineTo(this.ox, this.oy);
-        this.context.closePath();
-        this.context.fill();
-    };
-    return skillArc;
-})(ctObj);
-var skillNode = (function (_super) {
-    __extends(skillNode, _super);
-    function skillNode(nodetext, fillStyle, x, y, alpha) {
-        _super.call(this, x || 270, y || 270, 60, 60, alpha || 1);
-        this.fillStyle = fillStyle || '#555';
-        this.nodetext = nodetext;
-        this.r = 25;
-    }
-    skillNode.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.fillStyle = this.fillStyle;
-        this.context.arc(this.x + 30, this.y + 30, this.r, 0, Math.PI * 2, true);
-        this.context.closePath();
-        this.context.fill();
-        this.context.fillStyle = '#fff';
-        var xplus = 0;
-        if (this.nodetext.length > 9) {
-            this.context.font = '7px Arial';
-            xplus = 4;
-        }
-        else if (this.nodetext.length > 6) {
-            this.context.font = '7px Arial';
-            xplus = 0;
-        }
-        else {
-            this.context.font = '15px Arial';
-        }
-        this.context.fillText(this.nodetext, this.x + xplus + 30 - this.context.measureText(this.nodetext).width / 2, this.y + 35, 50);
-    };
-    return skillNode;
-})(ctObj);
-var timeNode = (function (_super) {
-    __extends(timeNode, _super);
-    function timeNode(timetitle, fillStyle, ox, oy, r, textalpha, alpha) {
-        this.timetitle = timetitle;
-        this.fillStyle = fillStyle || '#000';
-        this.ox = ox || 0;
-        this.oy = oy || 0;
-        this.r = r || 2;
-        this.textalpha = textalpha || 0;
-        _super.call(this, this.ox - 20, this.oy - 20, 40, 40, alpha || 0.01);
-    }
-    timeNode.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.fillStyle = '#000';
-        this.context.arc(this.x + 20, this.y + 20, this.r + 4, 0, Math.PI * 2, false);
-        this.context.closePath();
-        this.context.fill();
-        this.context.beginPath();
-        this.context.fillStyle = this.fillStyle;
-        this.context.arc(this.x + 20, this.y + 20, this.r, 0, Math.PI * 2, false);
-        this.context.closePath();
-        this.context.fill();
-        this.context.globalAlpha = this.textalpha;
-        this.context.fillStyle = '#fff';
-        this.context.font = '15px SimHei';
-        this.context.fillText(this.timetitle, this.x + 45, this.y + 25);
-    };
-    return timeNode;
 })(ctObj);

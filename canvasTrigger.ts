@@ -1,12 +1,28 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                      ________                                           
-//                                                     |__    __|        __                                
-//   ______    ____    ______   __  __   ____    ______   |  |    __  __|__|  _____   _____   _____  __  __
-//  |   ___|  /    \  |      \ |  | | | /    \  /  ___/   |  |   |  |/_/|  | / _   | / _   | /  _  \|  |/_/
-//  |  |____ /  △  \_|   _   |\   \/ //  △  \_\___  \   |  |   |   |  |  |_\___  |_\___  |/  ____/|   |  
-//  |_______|\_______/|__| |__| \____/ \_______/\_____/   |__|   |___|  |__|\______|\______|\______/|___|  
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//  2015/11/11 by DKZ https://davidkingzyb.github.io
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                      ________                                             //  
+//                                                     |__    __|        __                                  //  
+//   ______    ____    ______   __  __   ____    ______   |  |    __  __|__|  _____   _____   _____  __  __  //  
+//  |   ___|  /    \  |      \ |  | | | /    \  /  ___/   |  |   |  |/_/|  | / _   | / _   | /  _  \|  |/_/  //  
+//  |  |____ /  /   \_|   _   |\   \/ //  /   \_\___  \   |  |   |   |  |  |_\___  |_\___  |/  ____/|   |    //  
+//  |_______|\_______/|__| |__| \____/ \_______/\_____/   |__|   |___|  |__|\______|\______|\______/|___|    //  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  2016/01/22 by DKZ https://davidkingzyb.github.io
+//  github: https://github.com/davidkingzyb/canvasTrigger
+//  define objects in canvas and dispatch canvas event to those objects.
+//  base on observe pattern 
+//  debug and simple animation
+
+// quick example
+
+// var ctcanvas=new ctCanvas('canvas');
+// ctcanvas.addTrigger('click');
+
+// var a=new ctFillRect(100,100,200,200,'#f00');
+// ctcanvas.addObj(a);
+
+// a.on('click',function(){
+// 	console.log('a click');
+// });
 
 //=============core=================
 
@@ -151,7 +167,7 @@ class ctObj{
 		var vh=args.h?(args.h-this.h)/time*dt:0;
 		var valpha=args.alpha?(args.alpha-this.alpha)/time*dt:0;
 		var that=this;
-		var animate=animation(function(){
+		var animate=cT_animation(function(){
 			that.x+=vx;
 			that.y+=vy;
 			that.w+=vw;
@@ -171,7 +187,7 @@ class ctObj{
 //==========animation=============
 
 //time base animation
-function animation(update,context,dt?,fps?){
+function cT_animation(update,context,dt?,fps?){
 	var current = new Date().getTime();
 	var acc = 0;
 	var dt = dt||20;
@@ -193,7 +209,7 @@ function animation(update,context,dt?,fps?){
 
 //============debug==============
 
-function showPosition(target,ctcanvas){
+function cT_showPosition(target,ctcanvas){
 		ctcanvas.addTrigger('mousemove');
 		ctcanvas.addTrigger('mousedown');
 		ctcanvas.addTrigger('mouseup');
@@ -231,9 +247,9 @@ function showPosition(target,ctcanvas){
 			console.log(target.x,target.y,target.w,target.h);
 		})
 }
-function showPositions(targetarr,ctcanvas){
+function cT_showPositions(targetarr,ctcanvas){
 	for(var i=0;i<targetarr.length;i++){
-		showPosition(targetarr[i],ctcanvas);
+		cT_showPosition(targetarr[i],ctcanvas);
 	}
 }
 
