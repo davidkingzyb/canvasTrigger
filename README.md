@@ -10,13 +10,13 @@
 
 ###List
 
-- **canvasTrigger** define objects in canvas and dispatch canvas event to those objects.
+- **[canvasTrigger](#canvasTrigger)** define objects in canvas and dispatch canvas event to those objects.
 
-- **animationsCtrl** nimation controler to control frame animation
+- **[animationsCtrl](#animationsCtrl)** nimation controler to control frame animation
 
 ###quick example
 
-####canvasTigger
+####canvasTigger's
 
 ```
     var ctcanvas=new ctCanvas('canvas');
@@ -30,7 +30,7 @@
     });
 ```
 
-####animationsCtrl
+####animationsCtrl's
 
 ```
     aC_startMainLoop();
