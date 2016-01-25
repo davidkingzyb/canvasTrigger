@@ -10,7 +10,7 @@
 
 ###List
 
-- **[canvasTrigger](#canvasTrigger-1)** define objects in canvas and dispatch canvas event to those objects.
+- **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
 
 - **[animationsCtrl](#animationsctrl)** nimation controler to control frame animation
 
