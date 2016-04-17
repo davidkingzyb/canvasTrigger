@@ -12,7 +12,7 @@
 
 - **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
 
-- **[animationsCtrl](#animationsctrl)** nimation controler to control frame animation
+- **[animationCtrl](#animationCtrl)** nimation controler to control frame animation
 
 ###quick example
 
@@ -30,7 +30,7 @@
     });
 ```
 
-####animationsCtrl's
+####animationCtrl's
 
 ```
     aC_startMainLoop();
@@ -576,7 +576,7 @@ draw ctStrokeArc
 
 * void
 
-###animationsCtrl
+###animationCtrl
 
 ####aC_startMainLoop()
 
@@ -586,7 +586,7 @@ start main loop function
 
 stop main loop function
 
-####animationsCtrl()
+####animationCtrl()
 
 animation controler class
 
