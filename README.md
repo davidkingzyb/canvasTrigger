@@ -12,7 +12,7 @@
 
 - **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
 
-- **[animationCtrl](#animationCtrl)** nimation controler to control frame animation
+- **[animationCtrl](#animationctrl)** nimation controler to control frame animation
 
 ###quick example
 
