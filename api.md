@@ -8,13 +8,15 @@
 
 [guide](http://davidkingzyb.github.io/blogmd/6.html)
 
+[demo](http://davidkingzyb.github.io/canvasTrigger/demo/skilltreetest/skilltreetest.html)
+
 ###List
 
 - **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
 
 - **[animationCtrl](#animationctrl)** nimation controler to control frame animation
 
-- [**playsound.js**](#playsoundjs) sound play use &It;audio&gt;
+- [**playsound.js**](#playsoundjs) sound player
 
 
 ##API
@@ -595,7 +597,7 @@ unregist animation loop function
 
 ###playsound.js
 
-Sound player use HTML5 &It;audio&gt;  
+Sound player use HTML5 audio  
 
 ####playsound.path
 

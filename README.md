@@ -18,11 +18,11 @@
 
 - **[animationCtrl](#animationctrl)** nimation controler to control frame animation
 
-- [**playsound.js**](#playsoundjs) sound play use &It;audio&gt;
+- [**playsound.js**](#playsoundjs) sound player
 
 ###quick example
 
-####canvasTigger's
+####canvasTigger
 
 ```
     var ctcanvas=new ctCanvas('canvas');
@@ -36,7 +36,7 @@
     });
 ```
 
-####animationCtrl's
+####animationCtrl
 
 ```
     aC_startMainLoop();
