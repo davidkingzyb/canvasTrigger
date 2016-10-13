@@ -3,9 +3,60 @@
 <head>
 	<script type="text/javascript" src="res/canvasTrigger.js"></script>
 	<script type="text/javascript" src="res/skilltree.js"></script>
+    <style type="text/css">
+#footer a{
+    text-decoration: none;
+    color:white;
+    font-size: 16px;
+}
+#footer a:hover{
+    text-decoration: none;
+    color:#12e0e4;
+}
+
+#footer{
+    z-index: 20;
+    position:fixed;
+    bottom: 0px;
+    color:white;
+    font-family: Helvetica, Arial, SimHei, sans-serif;
+    margin:20px;
+    width: 100%;
+}
+#logo{
+    font-size: 25px;
+}
+#right{
+    float: right;
+    margin-top: 11px;
+    margin-right: 50px;
+}
+#left{
+    float:left;
+}
+
+#copyright{
+    font-size: 5px;
+}
+    </style>
 </head>
 <body style="background-color:#222">
 	<canvas id="skilltree" width="700" height="600" style="position:absolute;top:100px;left:100px;border:1px solid #000;"></canvas>
+        <div id="footer">
+        <div id="left">
+            <span id="logo">&nbsp;&nbsp;&nbsp;&nbsp;canvasTrigger&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="https://github.com/davidkingzyb/canvasTrigger">| github</a>&nbsp;&nbsp;
+            <a href="http://davidkingzyb.github.io/blogmd/6.html">| guide</a>&nbsp;&nbsp;
+            <a href="https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md">| api</a>&nbsp;&nbsp;
+            <a href="http://davidkingzyb.github.io/canvasTrigger/demo/timeline/timeline.html">| deme2</a>
+        </div>
+        <div id="right">
+            <a href="http://davidkingzyb.github.io">| home</a>&nbsp;&nbsp;
+            <a href="http://davidkingzyb.github.io/blog.html">| blog</a>&nbsp;&nbsp;
+            <span id="copyright">&copy;2016 by DKZ</span>
+        </div>
+        
+    </div>
 
 </body>
 </html>
