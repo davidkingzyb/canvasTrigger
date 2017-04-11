@@ -1,4 +1,4 @@
-#canvasTrigger
+# canvasTrigger
 
 **define objects in canvas and dispatch canvas event to those objects.**
 
@@ -12,7 +12,7 @@
 
 [demo](http://davidkingzyb.github.io/canvasTrigger/demo/skilltreetest/skilltreetest.html)
 
-###List
+### List
 
 - **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
 
@@ -20,9 +20,9 @@
 
 - [**playsound.js**](#playsoundjs) sound player
 
-###quick example
+### quick example
 
-####canvasTigger
+#### canvasTigger
 
 ```
     var ctcanvas=new ctCanvas('canvas');
@@ -36,7 +36,7 @@
     });
 ```
 
-####animationCtrl
+#### animationCtrl
 
 ```
     aC_startMainLoop();
@@ -54,14 +54,14 @@
 
 ```
 
-####playsound.js
+#### playsound.js
 
 ```
     playsound.loadsound('bgm');
     playsound.play('bgm');
 ```
 
-##Liscense
+## Liscense
 
 MIT
 
