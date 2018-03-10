@@ -10,7 +10,7 @@
 
 [api](./api.md)
 
-[demo](http://davidkingzyb.github.io/canvasTrigger/demo/skilltreetest/skilltreetest.html)
+[demo](./demo/chart/chart.html)
 
 ### List
 
@@ -61,9 +61,6 @@
     playsound.play('bgm');
 ```
 
-## Liscense
-
-MIT
 
 
 

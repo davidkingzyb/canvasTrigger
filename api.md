@@ -1,29 +1,14 @@
-#canvasTrigger
+# canvasTrigger
 
 **define objects in canvas and dispatch canvas event to those objects.**
 
-2015/8/3 by DKZ update 2016/1/22
+2015/8/3 by DKZ update 2018/3/10
 
+## API
 
+### canvasTrigger
 
-[guide](http://davidkingzyb.github.io/blogmd/6.html)
-
-[demo](http://davidkingzyb.github.io/canvasTrigger/demo/skilltreetest/skilltreetest.html)
-
-###List
-
-- **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
-
-- **[animationCtrl](#animationctrl)** nimation controler to control frame animation
-
-- [**playsound.js**](#playsoundjs) sound player
-
-
-##API
-
-###canvasTrigger
-
-####ctCanvas(id)
+### ctCanvas(id)
 
 create a ctCanvas object.
 
@@ -308,7 +293,7 @@ show ctObjs's position and make it dragable
 cT_showPositions([a,b],ctcanvas);
 ```
 
-####ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
+#### ctFillRect(fillStyle?,x?,y?,w?,h?,alpha?)
 
 extends ctObj 
 
@@ -329,7 +314,7 @@ draw this object
 
 * void
 
-####ctStrokeRect(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
+#### ctStrokeRect(strokeStyle?,lineWidth?,x?,y?,w?,h?,alpha?)
 
 stroke rectangle object
 
@@ -351,7 +336,7 @@ draw this object
 
 * void
 
-####ctFillText(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
+#### ctFillText(text,font?,fillStyle?,x?,y?,w?,h?,alpha?)
 
 extends ctObj
 
@@ -409,7 +394,7 @@ draw image
 
 * void
 
-####ctLine(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?)
+#### ctLine(strokeStyle,sx,sy,ex,ey,lineWidth?,alpha?)
 
 extends ctObj
 
@@ -421,7 +406,7 @@ var line=new ctLine(skillnode.fillStyle,x||300,y||300,skillnode.x+30,skillnode.y
 
 ##### strokeStyle:string
 
-strokeStyle
+strokeStyle '#000'
 
 ##### lineWidth:number
 

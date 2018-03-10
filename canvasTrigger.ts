@@ -9,6 +9,7 @@
 //  2016/01/22 by DKZ https://davidkingzyb.github.io
 //  github: https://github.com/davidkingzyb/canvasTrigger
 //  guide: http://davidkingzyb.github.io/blogmd/6.html
+//  api: https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md
 //  define objects in canvas and dispatch canvas event to those objects.
 //  base on observe pattern 
 //  debug and simple animation
@@ -158,54 +159,6 @@ class ctObj{
 	off(ctevent){
 		this.ctcanvas.removeObserver(ctevent,this);
 	}
-	//linear tween animation
-	to(args,time,callback){
-		var dt=20;
-		var step=time/dt;
-		var vx=args.x?(args.x-this.x)/time*dt:0;
-		var vy=args.y?(args.y-this.y)/time*dt:0;
-		var vw=args.w?(args.w-this.w)/time*dt:0;
-		var vh=args.h?(args.h-this.h)/time*dt:0;
-		var valpha=args.alpha?(args.alpha-this.alpha)/time*dt:0;
-		var that=this;
-		var animate=cT_animation(function(){
-			that.x+=vx;
-			that.y+=vy;
-			that.w+=vw;
-			that.h+=vh;
-			that.alpha+=valpha;
-			step--;
-			if(step<=0){
-				clearInterval(animate);
-				if(callback){
-					callback();
-				}
-			}
-		},this.ctcanvas,dt);	
-	}
-}
-
-//==========animation=============
-
-//time base animation
-function cT_animation(update,context,dt?,fps?){
-	var current = new Date().getTime();
-	var acc = 0;
-	var dt = dt||20;
-	var fps = fps||50;
-	var time = Math.ceil(1000/this.fps);
-	function loop() {
-        var now = new Date().getTime();
-        var passed= now - current; 
-        current = now;
-        acc+=passed;
-        while(acc>=dt){
-			update();
-			acc-=dt;
-        }
-        context.drawCanvas();
-    }
-	return setInterval(loop, time);
 }
 
 //============debug==============
@@ -248,6 +201,7 @@ function cT_showPosition(target,ctcanvas){
 			console.log(target.x,target.y,target.w,target.h);
 		})
 }
+
 function cT_showPositions(targetarr,ctcanvas){
 	for(var i=0;i<targetarr.length;i++){
 		cT_showPosition(targetarr[i],ctcanvas);
@@ -289,7 +243,7 @@ class ctFillText extends ctObj{
 	text;
 	font;
 	fillStyle;
-	constructor(text,font?,fillStyle?,x?,y?,w?,h?,alpha?){
+	constructor(text,font?,fillStyle?,x?,y?,w?,h?,alpha?,rotation?){
 		super(x,y,w,h,alpha);
 		this.text=text||'';
 		this.font=font||'40px Arial';
@@ -300,35 +254,6 @@ class ctFillText extends ctObj{
 		this.context.fillStyle=this.fillStyle;
 		this.context.font=this.font;
 		this.context.fillText(this.text,this.x,this.y);
-	}
-}
-
-class ctFillCircle extends ctObj{
-	fillStyle;
-	ox;
-	oy;
-	r;
-	sangle;
-	eangle;
-	clockwise;
-	constructor(fillStyle?,ox?,oy?,r?,alpha?){
-		super(ox-r,oy-r,2*r,2*r,alpha);
-		this.fillStyle=fillStyle||'#000';
-		this.ox=ox||50;
-		this.oy=oy||50;
-		this.r=r||50;
-		this.sangle=0;
-		this.eangle=Math.PI*2;
-		this.alpha=alpha||1;
-		this.clockwise=true;
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
-		this.context.closePath();
-		this.context.fill();
 	}
 }
 
@@ -379,69 +304,3 @@ class ctLine extends ctObj{
 		this.context.closePath();
 	}
 }
-
-class ctStrokeArc extends ctObj{
-	strokeStyle;
-	lineWidth;
-	ox;
-	oy;
-	r;
-	sangle;
-	eangle;
-	clockwise;
-	constructor(strokeStyle,lineWidth?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?){
-		super(ox-r,oy-r,2*r,2*r,alpha);
-		this.strokeStyle=strokeStyle;
-		this.lineWidth=lineWidth||2;
-		this.ox=ox||50;
-		this.oy=oy||50;
-		this.r=r||50;
-		this.sangle=sangle/180*Math.PI||0;
-		this.eangle=eangle/180*Math.PI||Math.PI*2;
-		this.alpha=alpha||1;
-		this.clockwise=clockwise||false;
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.strokeStyle=this.strokeStyle;
-		this.context.lineWidth=this.lineWidth;
-		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
-		this.context.stroke();
-		this.context.closePath();
-	}
-}
-
-class ctFillArc extends ctObj{
-	fillStyle;
-	ox;
-	oy;
-	r;
-	sangle;
-	eangle;
-	clockwise;
-	constructor(fillStyle?,ox?,oy?,r?,sangle?,eangle?,alpha?,clockwise?){
-		super(ox-r,oy-r,2*r,2*r,alpha);
-		this.fillStyle=fillStyle||'#000';
-		this.ox=ox||50;
-		this.oy=oy||50;
-		this.r=r||50;
-		this.sangle=sangle/180*Math.PI||0;
-		this.eangle=eangle/180*Math.PI||Math.PI*2;
-		this.alpha=alpha||1;
-		this.clockwise=clockwise||true;
-	}
-	draw(){
-		this.superdraw();
-		this.context.beginPath();
-		this.context.fillStyle=this.fillStyle;
-		this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
-		this.context.lineTo(this.x+this.r,this.y+this.r);
-		this.context.closePath();
-		this.context.fill();
-	}
-}
-
-
-
-

@@ -8,14 +8,21 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  2016/01/22 by DKZ https://davidkingzyb.github.io
 //  github: https://github.com/davidkingzyb/canvasTrigger
+//  guide: http://davidkingzyb.github.io/blogmd/6.html
+//  api: https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md
 //  define objects in canvas and dispatch canvas event to those objects.
 //  base on observe pattern 
 //  debug and simple animation
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 // quick example
 // var ctcanvas=new ctCanvas('canvas');
 // ctcanvas.addTrigger('click');
@@ -25,7 +32,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 // 	console.log('a click');
 // });
 //=============core=================
-var ctCanvas = (function () {
+var ctCanvas = /** @class */ (function () {
     function ctCanvas(id) {
         this.objs = [];
         this.triggers = [];
@@ -116,8 +123,8 @@ var ctCanvas = (function () {
         }
     };
     return ctCanvas;
-})();
-var ctObj = (function () {
+}());
+var ctObj = /** @class */ (function () {
     function ctObj(x, y, w, h, alpha) {
         this.x = x || 0;
         this.y = y || 0;
@@ -134,54 +141,8 @@ var ctObj = (function () {
     ctObj.prototype.off = function (ctevent) {
         this.ctcanvas.removeObserver(ctevent, this);
     };
-    //linear tween animation
-    ctObj.prototype.to = function (args, time, callback) {
-        var dt = 20;
-        var step = time / dt;
-        var vx = args.x ? (args.x - this.x) / time * dt : 0;
-        var vy = args.y ? (args.y - this.y) / time * dt : 0;
-        var vw = args.w ? (args.w - this.w) / time * dt : 0;
-        var vh = args.h ? (args.h - this.h) / time * dt : 0;
-        var valpha = args.alpha ? (args.alpha - this.alpha) / time * dt : 0;
-        var that = this;
-        var animate = cT_animation(function () {
-            that.x += vx;
-            that.y += vy;
-            that.w += vw;
-            that.h += vh;
-            that.alpha += valpha;
-            step--;
-            if (step <= 0) {
-                clearInterval(animate);
-                if (callback) {
-                    callback();
-                }
-            }
-        }, this.ctcanvas, dt);
-    };
     return ctObj;
-})();
-//==========animation=============
-//time base animation
-function cT_animation(update, context, dt, fps) {
-    var current = new Date().getTime();
-    var acc = 0;
-    var dt = dt || 20;
-    var fps = fps || 50;
-    var time = Math.ceil(1000 / this.fps);
-    function loop() {
-        var now = new Date().getTime();
-        var passed = now - current;
-        current = now;
-        acc += passed;
-        while (acc >= dt) {
-            update();
-            acc -= dt;
-        }
-        context.drawCanvas();
-    }
-    return setInterval(loop, time);
-}
+}());
 //============debug==============
 function cT_showPosition(target, ctcanvas) {
     ctcanvas.addTrigger('mousemove');
@@ -227,11 +188,12 @@ function cT_showPositions(targetarr, ctcanvas) {
     }
 }
 //===========obj=================
-var ctFillRect = (function (_super) {
+var ctFillRect = /** @class */ (function (_super) {
     __extends(ctFillRect, _super);
     function ctFillRect(fillStyle, x, y, w, h, alpha) {
-        _super.call(this, x, y, w, h, alpha);
-        this.fillStyle = fillStyle || '#000';
+        var _this = _super.call(this, x, y, w, h, alpha) || this;
+        _this.fillStyle = fillStyle || '#000';
+        return _this;
     }
     ctFillRect.prototype.draw = function () {
         this.superdraw();
@@ -239,13 +201,14 @@ var ctFillRect = (function (_super) {
         this.context.fillRect(this.x, this.y, this.w, this.h);
     };
     return ctFillRect;
-})(ctObj);
-var ctStrokeRect = (function (_super) {
+}(ctObj));
+var ctStrokeRect = /** @class */ (function (_super) {
     __extends(ctStrokeRect, _super);
     function ctStrokeRect(strokeStyle, lineWidth, x, y, w, h, alpha) {
-        _super.call(this, x, y, w, h, alpha);
-        this.strokeStyle = strokeStyle || '#f00';
-        this.lineWidth = lineWidth || 1;
+        var _this = _super.call(this, x, y, w, h, alpha) || this;
+        _this.strokeStyle = strokeStyle || '#f00';
+        _this.lineWidth = lineWidth || 1;
+        return _this;
     }
     ctStrokeRect.prototype.draw = function () {
         this.superdraw();
@@ -254,14 +217,15 @@ var ctStrokeRect = (function (_super) {
         this.context.strokeRect(this.x, this.y, this.w, this.h);
     };
     return ctStrokeRect;
-})(ctObj);
-var ctFillText = (function (_super) {
+}(ctObj));
+var ctFillText = /** @class */ (function (_super) {
     __extends(ctFillText, _super);
-    function ctFillText(text, font, fillStyle, x, y, w, h, alpha) {
-        _super.call(this, x, y, w, h, alpha);
-        this.text = text || '';
-        this.font = font || '40px Arial';
-        this.fillStyle = fillStyle || '#000';
+    function ctFillText(text, font, fillStyle, x, y, w, h, alpha, rotation) {
+        var _this = _super.call(this, x, y, w, h, alpha) || this;
+        _this.text = text || '';
+        _this.font = font || '40px Arial';
+        _this.fillStyle = fillStyle || '#000';
+        return _this;
     }
     ctFillText.prototype.draw = function () {
         this.superdraw();
@@ -270,56 +234,35 @@ var ctFillText = (function (_super) {
         this.context.fillText(this.text, this.x, this.y);
     };
     return ctFillText;
-})(ctObj);
-var ctFillCircle = (function (_super) {
-    __extends(ctFillCircle, _super);
-    function ctFillCircle(fillStyle, ox, oy, r, alpha) {
-        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
-        this.fillStyle = fillStyle || '#000';
-        this.ox = ox || 50;
-        this.oy = oy || 50;
-        this.r = r || 50;
-        this.sangle = 0;
-        this.eangle = Math.PI * 2;
-        this.alpha = alpha || 1;
-        this.clockwise = true;
-    }
-    ctFillCircle.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.fillStyle = this.fillStyle;
-        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
-        this.context.closePath();
-        this.context.fill();
-    };
-    return ctFillCircle;
-})(ctObj);
-var ctDrawImg = (function (_super) {
+}(ctObj));
+var ctDrawImg = /** @class */ (function (_super) {
     __extends(ctDrawImg, _super);
     function ctDrawImg(img, x, y, w, h, alpha, sx, sy, sw, sh) {
-        _super.call(this, x, y, img.width, img.height, alpha);
-        this.img = img;
-        this.sx = sx || 0;
-        this.sy = sy || 0;
-        this.sw = sw || img.width;
-        this.sh = sh || img.height;
+        var _this = _super.call(this, x, y, img.width, img.height, alpha) || this;
+        _this.img = img;
+        _this.sx = sx || 0;
+        _this.sy = sy || 0;
+        _this.sw = sw || img.width;
+        _this.sh = sh || img.height;
+        return _this;
     }
     ctDrawImg.prototype.draw = function () {
         this.superdraw();
         this.context.drawImage(this.img, this.sx, this.sy, this.sw, this.sh, this.x, this.y, this.w, this.h);
     };
     return ctDrawImg;
-})(ctObj);
-var ctLine = (function (_super) {
+}(ctObj));
+var ctLine = /** @class */ (function (_super) {
     __extends(ctLine, _super);
     function ctLine(strokeStyle, sx, sy, ex, ey, lineWidth, alpha) {
-        _super.call(this, 1, 1, 1, 1, alpha);
-        this.strokeStyle = strokeStyle;
-        this.sx = sx;
-        this.sy = sy;
-        this.ex = ex;
-        this.ey = ey;
-        this.lineWidth = lineWidth || 2;
+        var _this = _super.call(this, 1, 1, 1, 1, alpha) || this;
+        _this.strokeStyle = strokeStyle;
+        _this.sx = sx;
+        _this.sy = sy;
+        _this.ex = ex;
+        _this.ey = ey;
+        _this.lineWidth = lineWidth || 2;
+        return _this;
     }
     ctLine.prototype.draw = function () {
         this.superdraw();
@@ -332,53 +275,4 @@ var ctLine = (function (_super) {
         this.context.closePath();
     };
     return ctLine;
-})(ctObj);
-var ctStrokeArc = (function (_super) {
-    __extends(ctStrokeArc, _super);
-    function ctStrokeArc(strokeStyle, lineWidth, ox, oy, r, sangle, eangle, alpha, clockwise) {
-        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
-        this.strokeStyle = strokeStyle;
-        this.lineWidth = lineWidth || 2;
-        this.ox = ox || 50;
-        this.oy = oy || 50;
-        this.r = r || 50;
-        this.sangle = sangle / 180 * Math.PI || 0;
-        this.eangle = eangle / 180 * Math.PI || Math.PI * 2;
-        this.alpha = alpha || 1;
-        this.clockwise = clockwise || false;
-    }
-    ctStrokeArc.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.strokeStyle = this.strokeStyle;
-        this.context.lineWidth = this.lineWidth;
-        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
-        this.context.stroke();
-        this.context.closePath();
-    };
-    return ctStrokeArc;
-})(ctObj);
-var ctFillArc = (function (_super) {
-    __extends(ctFillArc, _super);
-    function ctFillArc(fillStyle, ox, oy, r, sangle, eangle, alpha, clockwise) {
-        _super.call(this, ox - r, oy - r, 2 * r, 2 * r, alpha);
-        this.fillStyle = fillStyle || '#000';
-        this.ox = ox || 50;
-        this.oy = oy || 50;
-        this.r = r || 50;
-        this.sangle = sangle / 180 * Math.PI || 0;
-        this.eangle = eangle / 180 * Math.PI || Math.PI * 2;
-        this.alpha = alpha || 1;
-        this.clockwise = clockwise || true;
-    }
-    ctFillArc.prototype.draw = function () {
-        this.superdraw();
-        this.context.beginPath();
-        this.context.fillStyle = this.fillStyle;
-        this.context.arc(this.x + this.r, this.y + this.r, this.r, this.sangle, this.eangle, this.clockwise);
-        this.context.lineTo(this.x + this.r, this.y + this.r);
-        this.context.closePath();
-        this.context.fill();
-    };
-    return ctFillArc;
-})(ctObj);
+}(ctObj));

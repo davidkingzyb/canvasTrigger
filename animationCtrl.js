@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  2016/01/22 by DKZ https://davidkingzyb.github.io
 //  github: https://github.com/davidkingzyb/canvasTrigger
+//  guide: http://davidkingzyb.github.io/blogmd/6.html
 //  animation controler to control frame animation 
 //  base on observe pattern and time-base animation register animation to animationCtrl 
 // example
@@ -61,7 +62,7 @@ function aC_startMainLoop() {
 function aC_stopMainLoop() {
     aC_isMainLoopRuning = false;
 }
-var animationCtrl = (function () {
+var animationCtrl = /** @class */ (function () {
     function animationCtrl() {
         this.loopArr = [];
         this.contextArr = [];
@@ -120,4 +121,4 @@ var animationCtrl = (function () {
         }
     };
     return animationCtrl;
-})();
+}());
