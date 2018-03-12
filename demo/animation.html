@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>animation</title>
+    <script type="text/javascript" src="../dist/canvastrigger.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        var i=0;
+        function loop(){
+            i++;
+            console.log(i);
+            if(i>1000){
+                ctAnimation.off(loop,this);
+                ctAnimation.stop();
+                ctAnimation.reset();
+            }
+        }
+        ctAnimation.on(loop,this);
+        ctAnimation.start();
+    </script>
+</body>
+</html>

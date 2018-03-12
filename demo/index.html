@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>canvasTrigger</title>
+    <script type="text/javascript" src="../dist/canvastrigger.min.js"></script>
+</head>
+
+<body>
+    <canvas id="ct" width="500" height="500" style="border:1px solid #000;"></canvas>
+    <script type="text/javascript">
+    var ctcanvas = new ctCanvas('ct');
+    ctcanvas.addTrigger('click');
+
+    var a = new ctFillRect('#f00', 100, 100, 200, 200);
+    ctcanvas.addObj(a);
+
+    a.on('click', function() {
+        console.log('a click');
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "canvastrigger",
+  "version": "1.0.0",
+  "description": "define object in canvas and dispatch canvas event to those object.",
+  "main": "index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/webpack --display-error-details"
+  },
+  "devDependencies":{
+    "webpack": "",
+    "ts-loader":"",
+    "webpack-cli":"",
+    "typescript":""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidkingzyb/canvasTrigger.git"
+  },
+  "keywords": [
+    "canvasTrigger"
+  ],
+  "author": "DKZ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidkingzyb/canvasTrigger/issues"
+  },
+  "homepage": "https://github.com/davidkingzyb/canvasTrigger#readme"
+}

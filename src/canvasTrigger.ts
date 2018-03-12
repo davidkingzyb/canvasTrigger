@@ -8,11 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  2016/01/22 by DKZ https://davidkingzyb.github.io
 //  github: https://github.com/davidkingzyb/canvasTrigger
-//  guide: http://davidkingzyb.github.io/blogmd/6.html
 //  api: https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md
-//  define objects in canvas and dispatch canvas event to those objects.
-//  base on observe pattern 
-//  debug and simple animation
 
 // quick example
 
@@ -304,3 +300,5 @@ class ctLine extends ctObj{
 		this.context.closePath();
 	}
 }
+
+export {ctCanvas,ctObj,cT_showPosition,cT_showPositions,ctFillRect,ctStrokeRect,ctFillText,ctDrawImg,ctLine}

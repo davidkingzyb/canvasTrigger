@@ -2,63 +2,56 @@
 
 **define objects in canvas and dispatch canvas event to those objects.**
 
-2015/8/3 by DKZ update 2016/1/22
-
-
-
-[guide](http://davidkingzyb.github.io/blogmd/6.html)
+2015/8/3 by DKZ update 2018/3/12
 
 [api](./api.md)
 
 [demo](./demo/chart/chart.html)
 
-### List
+## Quick Start
 
-- **[canvasTrigger](#canvastrigger-1)** define objects in canvas and dispatch canvas event to those objects.
+### canvasTigger
 
-- **[animationCtrl](#animationctrl)** nimation controler to control frame animation
-
-- [**playsound.js**](#playsoundjs) sound player
-
-### quick example
-
-#### canvasTigger
+define objects in canvas and dispatch canvas event to those objects
 
 ```
-    var ctcanvas=new ctCanvas('canvas');
-    ctcanvas.addTrigger('click');
+var ctcanvas = new ctCanvas('ct');
+ctcanvas.addTrigger('click');
 
-    var a=new ctFillRect(100,100,200,200,'#f00');
-    ctcanvas.addObj(a);
+var a = new ctFillRect('#f00', 100, 100, 200, 200);
+ctcanvas.addObj(a);
 
-    a.on('click',function(){
-    	console.log('a click');
-    });
+a.on('click', function() {
+    console.log('a click');
+});
 ```
 
-#### animationCtrl
+### ctAnimation
+
+Animation controler to control frame animation
 
 ```
-    aC_startMainLoop();
-    var i=0;
-    var anmt=new animationCtrl();
-    anmt.start();
-    anmt.on(function(){
-        i++;
-        console.log(i);
-        if(i>2000){
-            anmt.stop();
-            aC_stopMainLoop();
-        }
-    },this);
-
+var i=0;
+function loop(){
+    i++;
+    console.log(i);
+    if(i>1000){
+        ctAnimation.off(loop,this);
+        ctAnimation.stop();
+        ctAnimation.reset();
+    }
+}
+ctAnimation.on(loop,this);
+ctAnimation.start();
 ```
 
-#### playsound.js
+### ctPlaySound
+
+Sound player use HTML5 audio  
 
 ```
-    playsound.loadsound('bgm');
-    playsound.play('bgm');
+ctPlaySound.loadsound('s2a');
+ctPlaySound.play('s2a');
 ```
 
 

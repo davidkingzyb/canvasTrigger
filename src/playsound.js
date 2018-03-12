@@ -94,7 +94,7 @@ var playsound = (function() {
             }  
         }, false);
     }
-
-
     return playsound;
 })()
+
+exports.ctPlaySound=playsound;
