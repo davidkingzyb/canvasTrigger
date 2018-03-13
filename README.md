@@ -4,6 +4,8 @@
 
 2015/8/3 by DKZ update 2018/3/12
 
+[![GitHub license](https://img.shields.io/github/license/davidkingzyb/canvasTrigger.svg)](https://github.com/davidkingzyb/canvasTrigger/blob/master/LICENSE)
+
 [api](./api.md)
 
 [demo](http://davidkingzyb.github.io/canvasTrigger/demo/index.html)
