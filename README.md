@@ -6,7 +6,7 @@
 
 [api](./api.md)
 
-[demo](./demo/chart/chart.html)
+[demo](http://davidkingzyb.github.io/canvasTrigger/demo/index.html)
 
 ## Quick Start
 
@@ -54,7 +54,20 @@ ctPlaySound.loadsound('s2a');
 ctPlaySound.play('s2a');
 ```
 
+### ctBarChart
 
+Bar Chart
+
+```
+var barchart = new ctBarChart('barchart', '测试数据(int)');
+barchart.concatData([{
+    'name':'test1',
+    'num':10
+},{
+    'name':'test2',
+    'num':20
+}])
+```
 
 
 

@@ -4,21 +4,86 @@
 <head>
     <title>canvasTrigger</title>
     <script type="text/javascript" src="../dist/canvastrigger.min.js"></script>
+       <style type="text/css">
+    #footer a {
+        text-decoration: none;
+        font-size: 16px;
+        color: black;
+    }
+    
+    #footer a:hover {
+        text-decoration: none;
+        color: #12e0e4;
+    }
+    
+    #footer {
+        z-index: 20;
+        position: fixed;
+        bottom: 0px;
+        font-family: Helvetica, Arial, SimHei, sans-serif;
+        margin: 20px;
+        width: 100%;
+    }
+    
+    #logo {
+        font-size: 25px;
+    }
+    
+    #right {
+        float: right;
+        margin-top: 11px;
+        margin-right: 50px;
+    }
+    
+    #left {
+        float: left;
+    }
+    
+    #copyright {
+        font-size: 5px;
+    }
+    </style>
 </head>
 
 <body>
-    <canvas id="ct" width="500" height="500" style="border:1px solid #000;"></canvas>
+    <canvas id="ct" width="350" height="200" style="border:1px solid #000;"></canvas>
+    <p id="alert">Click Rect!</p>
     <script type="text/javascript">
     var ctcanvas = new ctCanvas('ct');
     ctcanvas.addTrigger('click');
 
-    var a = new ctFillRect('#f00', 100, 100, 200, 200);
-    ctcanvas.addObj(a);
+    var red = new ctFillRect('#f00', 50, 50, 100, 100);
+    ctcanvas.addObj(red);
 
-    a.on('click', function() {
-        console.log('a click');
+    var green= new ctFillRect('#0f0',200,50,100,100);
+    ctcanvas.addObj(green);
+
+    red.on('click', function() {
+        var alertdiv=document.getElementById('alert')
+        alertdiv.innerHTML='red clicked!'
+    });
+
+    green.on('click', function() {
+        var alertdiv=document.getElementById('alert')
+        alertdiv.innerHTML='green clicked!'
     });
     </script>
+    <div id="footer">
+        <div id="left">
+            <span id="logo">&nbsp;&nbsp;&nbsp;&nbsp;canvasTrigger&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="./chart/chart.html">| chart</a>&nbsp;&nbsp;
+            <a href="./animation.html">| animation</a>&nbsp;&nbsp;
+            <a href="./playsound.html">| playsound</a>&nbsp;&nbsp;
+            <a href="./skilltreetest/skilltreetest.html">| skilltree</a>&nbsp;&nbsp;
+            <a href="./timeline/timeline.html">| timeline</a>
+        </div>
+        <div id="right">
+            <a href="https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md">| api</a>&nbsp;&nbsp;
+            <a href="https://davidkingzyb.github.io">| home</a>&nbsp;&nbsp;
+            <a href="https://github.com/davidkingzyb/canvasTrigger">| github</a>&nbsp;&nbsp;
+            <span id="copyright">&copy;2016-2018 by DKZ</span>
+        </div>
+    </div>
 </body>
 
 </html>

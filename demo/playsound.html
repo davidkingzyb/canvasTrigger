@@ -1,14 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>playsound</title>
     <script type="text/javascript" src="../dist/canvastrigger.min.js"></script>
+    <style type="text/css">
+    #footer a {
+        text-decoration: none;
+        font-size: 16px;
+        color: black;
+    }
+    
+    #footer a:hover {
+        text-decoration: none;
+        color: #12e0e4;
+    }
+    
+    #footer {
+        z-index: 20;
+        position: fixed;
+        bottom: 0px;
+        font-family: Helvetica, Arial, SimHei, sans-serif;
+        margin: 20px;
+        width: 100%;
+    }
+    
+    #logo {
+        font-size: 25px;
+    }
+    
+    #right {
+        float: right;
+        margin-top: 11px;
+        margin-right: 50px;
+    }
+    
+    #left {
+        float: left;
+    }
+    
+    #copyright {
+        font-size: 5px;
+    }
+    </style>
 </head>
+
 <body>
     <script type="text/javascript">
-        ctPlaySound.path='./res/'
-        ctPlaySound.loadsound('s2a');
-        ctPlaySound.play('s2a');
+    ctPlaySound.path = './res/'
+    ctPlaySound.loadsound('s2a');
+    ctPlaySound.play('s2a');
     </script>
+    <div id="footer">
+        <div id="left">
+            <span id="logo">&nbsp;&nbsp;&nbsp;&nbsp;canvasTrigger&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="javascript:history.go(-1)">&lt; back</a>
+        </div>
+        <div id="right">
+            <a href="https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md">| api</a>&nbsp;&nbsp;
+            <a href="https://davidkingzyb.github.io">| home</a>&nbsp;&nbsp;
+            <a href="https://github.com/davidkingzyb/canvasTrigger">| github</a>&nbsp;&nbsp;
+            <span id="copyright">&copy;2016-2018 by DKZ</span>
+        </div>
+    </div>
 </body>
+
 </html>

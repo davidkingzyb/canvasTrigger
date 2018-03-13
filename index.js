@@ -26,3 +26,6 @@ ctStrokeRect=canvasTrigger.ctStrokeRect
 ctFillText=canvasTrigger.ctFillText
 ctDrawImg=canvasTrigger.ctDrawImg
 ctLine=canvasTrigger.ctLine
+ctFillCircle=canvasTrigger.ctFillCircle
+
+ctBarChart=require('./src/BarChart').ctBarChart

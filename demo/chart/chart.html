@@ -2,9 +2,7 @@
 <html>
 
 <head>
-    <script type="text/javascript" src="../../canvasTrigger.js"></script>
-    <script type="text/javascript" src="../../animationCtrl.js"></script>
-    <script type="text/javascript" src="../../ctChart.js"></script>
+    <script type="text/javascript" src="../../dist/canvastrigger.min.js"></script>
     <style type="text/css">
     #footer a {
         text-decoration: none;
@@ -50,41 +48,8 @@
     <canvas id="barchart" width="1000" height="550" style="border:1px solid #000;"></canvas>
     <script type="text/javascript">
     (function() {
-        aC_startMainLoop();
-        test_bar = new BarChart('barchart', '测试数据(int)');
+        var barchart = new ctBarChart('barchart', '测试数据(int)');
         down_x = 0;
-
-        function refresh() {
-            console.log('refresh');
-            test_bar.concatData(
-                [{
-                    'name': '加载a0',
-                    'num': parseInt(Math.random()*100)
-                }, {
-                    'name': '加载a1',
-                    'num': parseInt(Math.random()*100)
-                }, {
-                    'name': '加载a2',
-                    'num': parseInt(Math.random()*100)
-                }, {
-                    'name': '加载a3',
-                    'num': parseInt(Math.random()*100)
-                }, {
-                    'name': '加载a4',
-                    'num': parseInt(Math.random()*100)
-                }, ]
-            );
-            console.log(test_bar.bar_list)
-
-        }
-        test_bar.canvas.canvas.ontouchstart = (e) => {
-            down_x = e.touches[0].clientX;
-        }
-        test_bar.canvas.canvas.ontouchend = (e) => {
-            var offset = e.changedTouches[0].clientX - down_x;
-            refresh();
-            test_bar.initAnimate(offset)
-        }
         test_data_a = [{
             'name': '测试a0',
             'num': 10
@@ -101,22 +66,89 @@
             'name': '测试a4',
             'num': 30
         }, ]
-        test_bar.concatData(test_data_a);
+        barchart.concatData(test_data_a);
+        function refresh() {
+            console.log('refresh');
+            barchart.concatData(
+                [{
+                    'name': '加载a0',
+                    'num': parseInt(Math.random() * 100)
+                }, {
+                    'name': '加载a1',
+                    'num': parseInt(Math.random() * 100)
+                }, {
+                    'name': '加载a2',
+                    'num': parseInt(Math.random() * 100)
+                }, {
+                    'name': '加载a3',
+                    'num': parseInt(Math.random() * 100)
+                }, {
+                    'name': '加载a4',
+                    'num': parseInt(Math.random() * 100)
+                }, ]
+            );
+        }
+        barchart.canvas.canvas.ontouchstart = (e) => {
+            down_x = e.touches[0].clientX;
+        }
+        barchart.canvas.canvas.ontouchend = (e) => {
+            var offset = e.changedTouches[0].clientX - down_x;
+            refresh();
+            onAnmt(offset);
+        }
+
+        barchart.canvas.canvas.onmousedown = (e) => {
+            down_x = e.clientX;
+        }
+        barchart.canvas.canvas.onmouseup = (e) => {
+            var offset = e.clientX - down_x;
+            refresh();
+            onAnmt(offset);
+        }
+
+        ctAnimation.start();
+        var is_anmting=false;        
+        function onAnmt(offset){
+            var far=0;
+            var speed=0;
+            var absspeed=0;
+            if(!is_anmting){
+                is_anmting=true;
+                barchart.start_x+=offset;
+                far=Math.abs(offset);
+                speed=parseInt(offset/100);
+                absspeed=Math.abs(speed);
+                ctAnimation.on(loop,this);
+            }
+            function loop(){
+                far-=absspeed;
+                for(var i=0;i<barchart.bar_list.length;i++){
+                    barchart.bar_list[i].x+=speed;
+                }
+                for(var j=0;j<barchart.name_list.length;j++){
+                    barchart.name_list[j].x+=speed;
+                }
+                barchart.canvas.drawCanvas();
+                if(far<0){
+                    ctAnimation.off(loop,this);
+                    is_anmting=false;
+                    console.log('off')
+                }
+            }
+        }
+        
     })()
     </script>
     <div id="footer">
         <div id="left">
             <span id="logo">&nbsp;&nbsp;&nbsp;&nbsp;canvasTrigger&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <a href="http://davidkingzyb.github.io/blogmd/6.html">| guide</a>&nbsp;&nbsp;
-            <a href="https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md">| api</a>&nbsp;&nbsp;
-            <a href="../skilltreetest/skilltreetest.html">| deme1</a>&nbsp;&nbsp;
-            <a href="../timeline/timeline.html">| deme2</a>
+            <a href="javascript:history.go(-1)">&lt; back</a>
         </div>
         <div id="right">
-            <a href="http://davidkingzyb.github.io">| home</a>&nbsp;&nbsp;
+            <a href="https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md">| api</a>&nbsp;&nbsp;
+            <a href="https://davidkingzyb.github.io">| home</a>&nbsp;&nbsp;
             <a href="https://github.com/davidkingzyb/canvasTrigger">| github</a>&nbsp;&nbsp;
-            <a href="http://davidkingzyb.github.io/blog.html">| blog</a>&nbsp;&nbsp;
-            <span id="copyright">&copy;2016 by DKZ</span>
+            <span id="copyright">&copy;2016-2018 by DKZ</span>
         </div>
     </div>
 </body>

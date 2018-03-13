@@ -239,7 +239,7 @@ class ctFillText extends ctObj{
 	text;
 	font;
 	fillStyle;
-	constructor(text,font?,fillStyle?,x?,y?,w?,h?,alpha?,rotation?){
+	constructor(text,font?,fillStyle?,x?,y?,w?,h?,alpha?){
 		super(x,y,w,h,alpha);
 		this.text=text||'';
 		this.font=font||'40px Arial';
@@ -301,4 +301,33 @@ class ctLine extends ctObj{
 	}
 }
 
-export {ctCanvas,ctObj,cT_showPosition,cT_showPositions,ctFillRect,ctStrokeRect,ctFillText,ctDrawImg,ctLine}
+class ctFillCircle extends ctObj{
+    fillStyle;
+    ox;
+    oy;
+    r;
+    sangle;
+    eangle;
+    clockwise;
+    constructor(fillStyle?,ox?,oy?,r?,alpha?){
+        super(ox-r,oy-r,2*r,2*r,alpha);
+        this.fillStyle=fillStyle||'#000';
+        this.ox=ox||50;
+        this.oy=oy||50;
+        this.r=r||50;
+        this.sangle=0;
+        this.eangle=Math.PI*2;
+        this.alpha=alpha||1;
+        this.clockwise=true;
+    }
+    draw(){
+        this.superdraw();
+        this.context.beginPath();
+        this.context.fillStyle=this.fillStyle;
+        this.context.arc(this.x+this.r,this.y+this.r,this.r,this.sangle,this.eangle,this.clockwise);
+        this.context.closePath();
+        this.context.fill();
+    }
+}
+
+export {ctCanvas,ctObj,cT_showPosition,cT_showPositions,ctFillRect,ctStrokeRect,ctFillText,ctDrawImg,ctLine,ctFillCircle}
