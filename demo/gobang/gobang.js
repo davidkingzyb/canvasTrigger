@@ -1,6 +1,6 @@
 var Gobang=(function(){
     function Gobang(){
-        this._iswhite=true;//当前落子颜色
+        this.iswhite=true;//当前落子颜色
         this._board=[];//二维数组棋盘，-1：空白，0:白子，1:黑子
         this._steps=[];//储存上一步的信息
         this._regret_step=[];//储存悔棋的信息
@@ -14,25 +14,25 @@ var Gobang=(function(){
     Gobang.prototype.move=function(x,y){
         console.log('move',x,y)
         if(this._board[x][y]===-1){
-            this._board[x][y]=this._iswhite?0:1;
-            var piece=this.drawPiece(this._iswhite,x,y);
+            this._board[x][y]=this.iswhite?0:1;
+            var piece=this.drawPiece(this.iswhite,x,y);
             this._steps.push({
                 'x':x,
                 'y':y,
-                '_iswhite':this._iswhite,
+                'iswhite':this.iswhite,
                 'piece':piece
             })
-            var checknum=this._iswhite?0:1;
+            var checknum=this.iswhite?0:1;
             if(this.check(checknum,x,y)){
                 this.showResult(checknum);
             }else if(this._steps.length>=Gobang.SIZE*Gobang.SIZE){
                 this.showResult(-1);
-            }else if(Gobang.ISAI&&this.isai_white==this._iswhite){
+            }else if(Gobang.ISAI&&this.isai_white==this.iswhite){
                 var xy=this.aiMove(checknum,x,y);
-                this._iswhite=!this._iswhite;
+                this.iswhite=!this.iswhite;
                 this.move(xy.x,xy.y);
             }else{
-                this._iswhite=!this._iswhite;
+                this.iswhite=!this.iswhite;
             } 
         }
     }
@@ -92,7 +92,7 @@ var Gobang=(function(){
         if(this._steps){
             var step=this._steps.pop()
             this._board[step.x][step.y]=-1;
-            this._iswhite=!this._iswhite;
+            this.iswhite=!this.iswhite;
             this.removePiece(step.piece);
             this._regret_step.push(step);
         }    
@@ -134,6 +134,10 @@ var CTRender=(function(){
         this.ctcanvas.canvas.height=Gobang.SIZE*50+50;
         this.drawBoard()
         this.ctcanvas.addTrigger('click');
+        this.bindClick();
+
+    }
+    CTRender.prototype.bindClick=function(){
         this.boardbackground.on('click',(e)=>{
             var x=Math.floor((e.layerX-20)/50)
             var y=Math.floor((e.layerY-20)/50)
@@ -172,17 +176,19 @@ var CTRender=(function(){
     //结束信息
     CTRender.prototype.showResult=function(checknum){
         this.boardbackground.off('click');
-        var result;
         if(checknum===0){
-            result=new ctFillText('White Win','100px Arial','#fff',50,200);
-            this.ctcanvas.addObj(result)
+            this.result=new ctFillText('White Win','100px Arial','#fff',50,200);
+            this.ctcanvas.addObj(this.result)
         }else if(checknum===1){
-            result=new ctFillText('Black Win','100px Arial','#000',50,200);
-            this.ctcanvas.addObj(result)
+            this.result=new ctFillText('Black Win','100px Arial','#000',50,200);
+            this.ctcanvas.addObj(this.result)
         }else{
-            result=new ctFillText('We Draw','100px Arial','#000',50,200);
-            this.ctcanvas.addObj(result)
+            this.result=new ctFillText('We Draw','100px Arial','#000',50,200);
+            this.ctcanvas.addObj(this.result)
         }
+    }
+    CTRender.prototype.hideResult=function(){
+        this.ctcanvas.removeObj(this.result);
     }
 
     return CTRender;
@@ -349,6 +355,12 @@ function restart(){
     Gobang.ISAI=false;
 }
 function regret(){
+    if(gobang.result){
+        gobang.hideResult();
+        gobang.bindClick();
+        gobang.result=null;
+        gobang.iswhite=!gobang.iswhite;
+    }
     if(Gobang.ISAI){
         gobang.regret();
         gobang.regret();
@@ -368,8 +380,8 @@ function ai(){
     Gobang.ISAI=true;        
     var last_step=gobang._steps.pop();
     if(last_step){
-        gobang.isai_white=last_step._iswhite;
-        var checknum=last_step._iswhite?0:1;
+        gobang.isai_white=last_step.iswhite;
+        var checknum=last_step.iswhite?0:1;
         var xy=gobang.aiMove(checknum,last_step.x,last_step.y);
         gobang.move(xy.x,xy.y);
     }else{
