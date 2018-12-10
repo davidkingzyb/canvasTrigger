@@ -1,8 +1,8 @@
 {
   "name": "canvastrigger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "define object in canvas and dispatch canvas event to those object.",
-  "main": "./canvastrigger.min.js",
+  "main": "./src/index.ts",
   "scripts": {
     "build": "./node_modules/.bin/webpack --display-error-details"
   },

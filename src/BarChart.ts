@@ -11,6 +11,8 @@
 //  guide: http://davidkingzyb.github.io/blogmd/6.html
 //  api: https://github.com/davidkingzyb/canvasTrigger/blob/master/api.md
 
+import {ctCanvas,ctObj,cT_showPosition,cT_showPositions,ctFillRect,ctStrokeRect,ctFillText,ctDrawImg,ctLine,ctFillCircle} from './canvastrigger'
+
 class ctBarChart{
     canvas;
     line;
@@ -36,12 +38,12 @@ class ctBarChart{
 
     addBar(name,height){
         var bar=new ctFillRect('#999',this.start_x,this.CHART_HEIGHT+1-height,50,height);
-        var name=new ctFillText(name,'15px SimHei','#000',this.start_x,this.CHART_HEIGHT+15);
+        var nametf=new ctFillText(name,'15px SimHei','#000',this.start_x,this.CHART_HEIGHT+15);
         this.bar_list.push(bar);
-        this.name_list.push(name);
+        this.name_list.push(nametf);
         this.start_x+=100;
         this.canvas.addObj(bar);
-        this.canvas.addObj(name);
+        this.canvas.addObj(nametf);
     }
 
     raw_data_list=[]
